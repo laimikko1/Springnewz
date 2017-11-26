@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.Entity;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -17,11 +18,11 @@ import java.util.List;
 @Entity
 public class News extends AbstractPersistable<Long> {
 
-    @Min(10)
+    @Size(min=10)
     private String header;
-    @Min(10)
+    @Size(min=10)
     private String ingress;
-    @Min(20)
+    @Size(min=20)
     private String text;
     private LocalDate created;
 //    private List<Newswriter> writers;
