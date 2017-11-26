@@ -14,7 +14,6 @@ import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Component
 @Entity
 public class News extends AbstractPersistable<Long> {
 
