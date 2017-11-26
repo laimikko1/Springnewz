@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Orders</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/tyylisivu.css}"/>
+</head>
+
+<header th:replace="fragments/navbar :: header">
+    <p>testataan</p>
+</header>
+<body>
+<div class="o">
+
+
+    <div class="columns">
+        <div class="column main-column">
+            <ul>
+                <li>moi</li>
+                <li>hei</li>
+            </ul>
+        </div>
+        <div th:replace="fragments/sideColumn :: luetuimmat">
+            <p>testi</p>
+        </div>
+
+        <div th:replace="fragments/sideColumn :: uusimmat">
+            <p>dodi</p>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

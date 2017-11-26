@@ -1,0 +1,40 @@
+body {
+    margin-left:250px;
+    margin-right:250px;
+}
+
+.columns {
+    display: flex;
+}
+
+.column {
+    flex: 1;
+    border: solid;
+    margin: 5px;
+}
+
+.main-column {
+    flex: 2;
+    border: solid;
+    margin-left:50px;
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    background: mediumseagreen;
+    border-radius: 10px;
+    margin: 50px;
+
+}
+
+.navbar li {
+    padding: 25px;
+    display: inline-block;
+
+}
+
+.navbar li:hover {
+    background: white;
+}
+
