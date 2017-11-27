@@ -7,6 +7,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -20,10 +21,18 @@ public class News extends AbstractPersistable<Long> {
 
     @Size(min=10)
     private String header;
+
     @Size(min=10)
     private String ingress;
+
     @Size(min=20)
-    private String text;
-    private LocalDate created;
-//    private List<Newswriter> writers;
+    private String content;
+
+    private LocalDate publishdate;
+
+    @OneToMany
+    private List<Newswriter> writers;
+
+    @OneToMany
+    private List<Category> categories;
 }
