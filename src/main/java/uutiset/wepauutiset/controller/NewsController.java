@@ -2,6 +2,7 @@ package uutiset.wepauutiset.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -110,6 +111,7 @@ public class NewsController {
         return "redirect:/";
     }
 
+    @Transactional
     @GetMapping(path = "/image/{id}/", produces = {"image/png", "image/jpg"})
     @ResponseBody
     public byte[] getContent(@PathVariable Long id) {
