@@ -19,7 +19,6 @@ import java.util.List;
 @Entity
 public class NewsWriter extends AbstractPersistable<Long> {
 
-    @Size(min=3, max=20)
     private String name;
 
     @ManyToMany(mappedBy = "writers")

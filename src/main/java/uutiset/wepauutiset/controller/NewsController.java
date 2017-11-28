@@ -1,11 +1,10 @@
 package uutiset.wepauutiset.controller;
 
+import com.sun.media.jfxmedia.Media;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import uutiset.wepauutiset.domain.Category;
 import uutiset.wepauutiset.domain.News;
@@ -37,6 +36,8 @@ public class NewsController {
 
     @GetMapping("/")
     public String showIndex(Model model) {
+        List<News> news = newsRepository.findAll();
+        model.addAttribute("news", news);
         return "index";
 
     }
@@ -108,6 +109,13 @@ public class NewsController {
         newsRepository.save(news);
 
         return "redirect:/";
+    }
+
+    @GetMapping(path = "/image/{id}/", produces = {"image/png", "image/jpg"})
+    @ResponseBody
+    public byte[] getContent(@PathVariable Long id) {
+        News n = newsRepository.getOne(id);
+        return n.getNewsObject().getContent();
     }
 
 }

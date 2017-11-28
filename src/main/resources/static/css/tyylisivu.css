@@ -1,8 +1,51 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700');
+
+html * {
+    font-family: 'Open Sans', sans-serif;
+}
+
 .main {
-    margin-left: 300px;
+    margin-left: 3em;
     float: left;
     width: 760px;
 }
+
+.article {
+    background: mediumseagreen;
+    border-style: solid;
+    border-color: mediumseagreen;
+    border-radius: 25px;
+    padding-left: 20px;
+    padding-bottom: 25px;
+
+}
+
+.article h2 {
+    padding: 10px;
+    color: white;
+}
+
+img {
+    width: 540px; /* you can use % */
+    height: auto;
+}
+
+.article span {
+
+    background: mediumseagreen;
+    border-radius: 10px;
+    padding: 10px;
+    color: white;
+}
+
+#article-category {
+    border-radius: 10px;
+    padding: 10px;
+    background-color: white;
+    color: mediumseagreen;
+    font-weight: bold;
+}
+
 .aside {
     margin-right: 140px;
     float: right;
@@ -12,8 +55,6 @@
 .aside li {
     border-style: solid;
 }
-
-
 
 .navbar ul {
     list-style-type: none;
@@ -31,7 +72,7 @@
 }
 
 .navbar li:last-child {
-    float:right;
+    float: right;
 }
 
 .navbar li:hover {

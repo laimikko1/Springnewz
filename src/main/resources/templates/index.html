@@ -13,10 +13,14 @@
 
 
 <div class="main">
-    <ul>
-        <li>moi</li>
-
-    </ul>
+    <div class="article" th:each="n : ${news}">
+        <h2 th:text="${n.header}">n</h2>
+        <img th:src="@{/image/{id}/(id=${n.id})}"/>
+        <p></p>
+        <p></p>
+        <span th:text="${n.ingress}">INKIRESSI</span>
+        <span id="article-category" th:each="c : ${n.categories}" th:text="${c.name}"></span>
+    </div>
 </div>
 
 
