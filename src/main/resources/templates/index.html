@@ -18,7 +18,7 @@
         <img th:src="@{/image/{id}/(id=${n.id})}"/>
         <p></p>
         <p></p>
-        <span th:text="${n.ingress}">INKIRESSI</span>
+        <p th:text="${n.ingress}">INKIRESSI</p>
         <span id="article-category" th:each="c : ${n.categories}" th:text="${c.name}"></span>
     </div>
 </div>
