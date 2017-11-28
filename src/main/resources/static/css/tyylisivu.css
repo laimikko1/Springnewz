@@ -1,23 +1,19 @@
-body {
-    margin-left:250px;
-    margin-right:250px;
+.main {
+    margin-left: 300px;
+    float: left;
+    width: 760px;
+}
+.aside {
+    margin-right: 140px;
+    float: right;
+    width: 180px;
 }
 
-.columns {
-    display: flex;
+.aside li {
+    border-style: solid;
 }
 
-.column {
-    flex: 1;
-    border: solid;
-    margin: 5px;
-}
 
-.main-column {
-    flex: 2;
-    border: solid;
-    margin-left:50px;
-}
 
 .navbar ul {
     list-style-type: none;
@@ -34,7 +30,22 @@ body {
 
 }
 
+.navbar li:last-child {
+    float:right;
+}
+
 .navbar li:hover {
     background: white;
 }
 
+form input:not([type=submit]) {
+    display: block; /* IE fix */
+    min-width: 0; /* fix for min-width: auto */
+    margin: 10px;
+}
+
+form textarea {
+    display: block; /* IE fix */
+    min-width: 0; /* fix for min-width: auto */
+    margin: 10px;
+}

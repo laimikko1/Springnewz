@@ -2,20 +2,25 @@ package uutiset.wepauutiset.domain;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import java.time.LocalDate;
+import javax.persistence.Lob;
+import javax.persistence.OneToOne;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class NewsClick extends AbstractPersistable<Long>{
+@Data
+public class NewsObject extends AbstractPersistable<Long>{
 
-    private LocalDate clickDate;
 
-    @JoinColumn
+    @Lob
+    private byte[] content;
+
+    @OneToOne(mappedBy = "newsObject")
     private News news;
+
 }

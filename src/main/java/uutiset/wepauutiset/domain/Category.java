@@ -2,7 +2,9 @@ package uutiset.wepauutiset.domain;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -11,10 +13,11 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 
-public class Category {
+public class Category extends AbstractPersistable<Long>{
 
-    private String categoryName;
+    private String name;
 
     private boolean isPinnedToMenu;
 

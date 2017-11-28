@@ -3,6 +3,7 @@ package uutiset.wepauutiset.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -14,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Entity
-public class Newswriter {
+public class NewsWriter extends AbstractPersistable<Long> {
 
     @Size(min=3, max=20)
     private String name;

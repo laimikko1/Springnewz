@@ -2,37 +2,40 @@ package uutiset.wepauutiset.domain;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.AbstractPersistable;
-import org.springframework.stereotype.Component;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.Min;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Data
 public class News extends AbstractPersistable<Long> {
 
-    @Size(min=10)
+    @Size(min = 10)
     private String header;
 
-    @Size(min=10)
+    @Size(min = 10)
     private String ingress;
 
-    @Size(min=20)
+    @Size(min = 20)
     private String content;
 
     private LocalDate publishdate;
 
     @OneToMany
-    private List<Newswriter> writers;
+    private List<NewsWriter> writers;
 
     @OneToMany
     private List<Category> categories;
+
+    @OneToOne
+    @JoinColumn
+    private NewsObject newsObject;
+
 }

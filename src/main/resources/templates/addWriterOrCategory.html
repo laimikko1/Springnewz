@@ -1,22 +1,32 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Orders</title>
     <meta charset="UTF-8"/>
     <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/tyylisivu.css}"/>
+    <title>Title</title>
 </head>
 
 <header th:replace="fragments/navbar :: header">
     <p>testataan</p>
 </header>
+
 <body>
 
-
 <div class="main">
-    <ul>
-        <li>moi</li>
+    <form th:action="@{/addWriter}" method="POST">
+        <br>Nimi</br>
+        <input type="text" name="name"/>
 
-    </ul>
+        <input type="submit" value="Add news!"/>
+    </form>
+
+    <form th:action="@{/addCategory}" method="POST">
+        <br>Kategorian nimi</br>
+        <input type="text" name="category"/>
+
+        <input type="submit" value="Add category!"/>
+    </form>
+
 </div>
 
 
@@ -30,7 +40,6 @@
         <p>dodi</p>
     </div>
 </div>
-
 
 </body>
 </html>

@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/tyylisivu.css}"/>
+    <title>Title</title>
+</head>
+
+<header th:replace="fragments/navbar :: header">
+    <p>testataan</p>
+</header>
+
+<body>
+
+<div class="main">
+    <form th:action="@{/addNews}" method="POST" id="newsform" enctype="multipart/form-data">
+        <br>Otsikko</br>
+        <input type="text" name="header"/>
+        <br>Ingressi</br>
+        <textarea name="ingress" style="width: 600px; height: 100px;"></textarea>
+        <br>Content</br>
+        <textarea name="content" style="width: 600px; height: 100px;"></textarea>
+
+        <br>Writers:</br>
+        <select name="writers" form="newsform" multiple="multiple">
+            <option value="">Select writers</option>
+            <option th:each="writer : ${writers}"
+                    th:value="${writer.name}"
+                    th:text="${writer.name}"></option>
+        </select>
+        <br>Categories:</br>
+
+        <select name="categories" form="newsform" multiple="multiple">
+            <option value="">Select writers</option>
+            <option th:each="category : ${categories}"
+                    th:value="${category.name}"
+                    th:text="${category.name}"></option>
+        </select>
+
+        <br>News picture</br>
+        <input type="file" name="newsObject"/>
+
+        <input type="submit" value="Send!"/>
+    </form>
+
+</div>
+<div class="aside">
+
+    <div th:replace="fragments/sideColumn :: luetuimmat">
+        <p>testi</p>
+    </div>
+
+    <div th:replace="fragments/sideColumn :: uusimmat">
+        <p>dodi</p>
+    </div>
+</div>
+
+</body>
+</html>
