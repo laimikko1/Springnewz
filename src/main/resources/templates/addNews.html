@@ -25,15 +25,16 @@
         <select name="writers" form="newsform" multiple="multiple">
             <option value="">Select writers</option>
             <option th:each="writer : ${writers}"
-                    th:value="${writer.name}"
+                    th:value="${writer.id}"
                     th:text="${writer.name}"></option>
         </select>
+
         <br>Categories:</br>
 
         <select name="categories" form="newsform" multiple="multiple">
             <option value="">Select writers</option>
             <option th:each="category : ${categories}"
-                    th:value="${category.name}"
+                    th:value="${category.id}"
                     th:text="${category.name}"></option>
         </select>
 

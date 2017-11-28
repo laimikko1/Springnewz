@@ -81,17 +81,31 @@ public class NewsController {
 
         NewsObject no = new NewsObject();
         no.setContent(newsObject.getBytes());
-        News news = new News();
+        newsObjectRepository.save(no);
 
+
+        News news = new News();
         news.setHeader(header);
         news.setIngress(ingress);
         news.setContent(content);
+
+        String[] wr = writers.split(",");
+
+        for (String w : wr) {
+            NewsWriter nw = newsWriterRepository.getOne(Long.parseLong((w)));
+            news.addNewsWriter(nw);
+        }
+
+        String[] c = categories.split(",");
+
+        for (String ct : c) {
+            Category nc = categoryRepository.getOne(Long.parseLong((ct)));
+            news.addCategory(nc);
+        }
+
         news.setNewsObject(no);
         news.setPublishdate(LocalDate.now());
-
-
-        newsObjectRepository.save(no);
-
+        newsRepository.save(news);
 
         return "redirect:/";
     }

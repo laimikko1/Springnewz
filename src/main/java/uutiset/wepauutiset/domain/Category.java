@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class Category extends AbstractPersistable<Long>{
 
     private boolean isPinnedToMenu;
 
-    @OneToMany(mappedBy = "categories")
+    @ManyToMany(mappedBy = "categories")
     private List<News> categoryNews;
 
 }

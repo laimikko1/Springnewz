@@ -9,6 +9,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -17,25 +18,37 @@ import java.util.List;
 @Data
 public class News extends AbstractPersistable<Long> {
 
-    @Size(min = 10)
     private String header;
 
-    @Size(min = 10)
     private String ingress;
 
-    @Size(min = 20)
     private String content;
 
     private LocalDate publishdate;
 
-    @OneToMany
+    @ManyToMany
     private List<NewsWriter> writers;
 
-    @OneToMany
+    @ManyToMany
     private List<Category> categories;
 
     @OneToOne
-    @JoinColumn
     private NewsObject newsObject;
+
+    public void addNewsWriter(NewsWriter writer) {
+        if (this.writers == null) {
+            this.writers = new ArrayList<>();
+        }
+
+        this.writers.add(writer);
+    }
+
+    public void addCategory(Category category) {
+        if (this.categories == null) {
+            this.categories = new ArrayList<>();
+        }
+
+        this.categories.add(category);
+    }
 
 }

@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -20,7 +22,7 @@ public class NewsWriter extends AbstractPersistable<Long> {
     @Size(min=3, max=20)
     private String name;
 
-    @OneToMany(mappedBy = "writers")
+    @ManyToMany(mappedBy = "writers")
     private List<News> writtenNews;
 
 }
