@@ -1,6 +1,5 @@
 package uutiset.wepauutiset.controller;
 
-import com.sun.media.jfxmedia.Media;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
