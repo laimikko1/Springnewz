@@ -51,4 +51,5 @@ public class News extends AbstractPersistable<Long> {
         this.categories.add(category);
     }
 
+
 }

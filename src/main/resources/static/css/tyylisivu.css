@@ -17,7 +17,7 @@ html * {
     border-radius: 25px;
     padding-left: 20px;
     padding-bottom: 25px;
-    margin-top:25px;
+    margin-top: 25px;
 
 }
 
@@ -48,13 +48,30 @@ img {
 }
 
 .aside {
-    margin-right: 140px;
+    margin-right: 200px;
     float: right;
     width: 180px;
 }
 
 .aside li {
+    padding: 10px;
+    list-style: none;
+    margin: 10px 0;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+
+
+}
+
+.aside ul {
+    margin-right: 10px;
     border-style: solid;
+    border-color: white;
+    background-color: mediumseagreen;
+    margin-bottom: 80px;
+    width: 300px;
+
 }
 
 .navbar ul {

@@ -7,22 +7,25 @@
 <body>
 
 
+<div th:fragment="luetuimmat">
+    <h2>Suosituimmat</h2>
+    <ul>
+        <li th:if="${news != null}" th:each="n : ${news}">
+            <span th:text="${n.header}">msg</span>
+            <p></p><span th:text="${n.publishdate}">date</span>
+        </li>
+    </ul>
+</div>
 
-    <div th:fragment="luetuimmat">
-        <ul>
-            <li>yks</li>
-            <li>kaks</li>
-            <li>kolme</li>
-        </ul>
-    </div>
-
-    <div th:fragment="uusimmat">
-        <ul>
-            <li>kaks</li>
-            <li>yks</li>
-            <li>kaks</li>
-        </ul>
-    </div>
+<div th:fragment="luetuimmat">
+    <h2>Suosituimmat</h2>
+    <ul>
+        <li th:if="${news != null}" th:each="n : ${news}">
+            <span th:text="${n.header}">msg</span>
+            <p></p><span th:text="${n.publishdate}">date</span>
+        </li>
+    </ul>
+</div>
 
 </body>
 </html>
