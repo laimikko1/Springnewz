@@ -25,6 +25,8 @@ public class News extends AbstractPersistable<Long> {
     @Size(max = 1000)
     private String content;
 
+    private Integer clicks;
+
     private LocalDate publishdate;
 
     @ManyToMany
@@ -50,6 +52,10 @@ public class News extends AbstractPersistable<Long> {
         }
 
         this.categories.add(category);
+    }
+
+    public void addclick() {
+        this.clicks++;
     }
 
 

@@ -17,6 +17,7 @@ public class NewsObject extends AbstractPersistable<Long> {
     @Lob
     private byte[] content;
 
+    @OneToOne
     private News news;
 
 }

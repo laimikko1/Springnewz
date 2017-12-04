@@ -26,6 +26,15 @@ html * {
     color: white;
 }
 
+.article p {
+    color:white;
+    font-weight:bold;
+}
+
+.article a:link {
+    text-decoration: none;
+}
+
 img {
     width: 540px; /* you can use % */
     height: auto;

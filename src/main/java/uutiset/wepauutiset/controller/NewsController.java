@@ -6,10 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import uutiset.wepauutiset.domain.Category;
-import uutiset.wepauutiset.domain.News;
-import uutiset.wepauutiset.domain.NewsObject;
-import uutiset.wepauutiset.domain.NewsWriter;
+import uutiset.wepauutiset.domain.*;
 import uutiset.wepauutiset.repository.CategoryRepository;
 import uutiset.wepauutiset.repository.NewsObjectRepository;
 import uutiset.wepauutiset.repository.NewsRepository;
@@ -33,19 +30,26 @@ public class NewsController {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private NewsFinderService newsFinderService;
+
+
+
 
     @GetMapping("/")
     public String showIndex(Model model) {
-        List<News> news = newsRepository.findAll();
-        model.addAttribute("news", news);
+        model.addAttribute("news", newsFinderService.findNewest());
         addAsideListNews(model);
         return "index";
 
     }
 
-    @GetMapping("/news/{id}")
-    public String showOne(Model model, @PathVariable Long id) throws Throwable {
-        model.addAttribute("n", newsRepository.getOne(id));
+    @GetMapping("/news/{newsId}")
+    public String showOne(Model model, @PathVariable Long newsId) throws Throwable {
+        model.addAttribute("n", newsRepository.getOne(newsId));
+        model.addAttribute("writers", newsWriterRepository.findAll());
+        model.addAttribute("categories", categoryRepository.findAll());
+
         addAsideListNews(model);
 
         return "singleNewsPage";
@@ -55,6 +59,9 @@ public class NewsController {
     @GetMapping("/add")
     public String addNew(Model model) {
         addAsideListNews(model);
+        model.addAttribute("writers", newsWriterRepository.findAll());
+        model.addAttribute("categories", categoryRepository.findAll());
+
         return "addNews";
     }
 
@@ -107,9 +114,8 @@ public class NewsController {
 
 
     private void addAsideListNews(Model model) {
-        model.addAttribute("writers", newsWriterRepository.findAll());
-        model.addAttribute("categories", categoryRepository.findAll());
-
+        model.addAttribute("newest", newsFinderService.findNewest());
+        model.addAttribute("mostPopular", newsFinderService.findMostPopular());
     }
 
 }

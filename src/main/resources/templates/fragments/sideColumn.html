@@ -7,7 +7,7 @@
 <body>
 
 
-<div th:fragment="luetuimmat">
+<div th:fragment="uusimmat">
     <h2>Suosituimmat</h2>
     <ul>
         <li th:if="${news != null}" th:each="n : ${news}">
@@ -18,7 +18,7 @@
 </div>
 
 <div th:fragment="luetuimmat">
-    <h2>Suosituimmat</h2>
+    <h2>Luetuimmat</h2>
     <ul>
         <li th:if="${news != null}" th:each="n : ${news}">
             <span th:text="${n.header}">msg</span>
