@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Orders</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/tyylisivu.css}"/>
+</head>
+
+<header th:replace="fragments/navbar :: header">
+    <p>testataan</p>
+</header>
+<body>
+
+
+<div class="main">
+    <div class="article newspage-article">
+        <h1 th:text="${n.header}">n</h1>
+        <img th:src="@{/image/{id}/(id=${n.id})}"/>
+        <p></p>
+        <p></p>
+        <p th:text="${n.ingress}">INKIRESSI</p>
+        <pre th:text="${n.content}"></pre>
+        <p></p>
+        <span th:text="${n.publishdate}"></span>
+        <span th:each="nw : ${n.writers}" th:text="${nw.name}"></span>
+    </div>
+</div>
+
+
+<div class="aside">
+
+    <div th:replace="fragments/sideColumn :: luetuimmat">
+        <p>testi</p>
+    </div>
+
+    <div th:replace="fragments/sideColumn :: uusimmat">
+        <p>dodi</p>
+    </div>
+</div>
+
+
+</body>
+</html>
