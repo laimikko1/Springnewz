@@ -61,7 +61,6 @@ public class NewsController {
         addAsideListNews(model);
         model.addAttribute("writers", newsWriterRepository.findAll());
         model.addAttribute("categories", categoryRepository.findAll());
-
         return "addNews";
     }
 
