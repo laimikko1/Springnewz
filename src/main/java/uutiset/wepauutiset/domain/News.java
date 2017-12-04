@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class News extends AbstractPersistable<Long> {
     private String header;
 
     private String ingress;
-
+    @Size(max = 1000)
     private String content;
 
     private LocalDate publishdate;

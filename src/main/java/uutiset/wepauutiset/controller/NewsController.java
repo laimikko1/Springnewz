@@ -38,37 +38,23 @@ public class NewsController {
     public String showIndex(Model model) {
         List<News> news = newsRepository.findAll();
         model.addAttribute("news", news);
+        addAsideListNews(model);
         return "index";
 
     }
 
-    @GetMapping("/addWriterOrCategory")
-    public String addWriterOrCategory() {
-        return "addWriterOrCategory";
+    @GetMapping("/news/{id}")
+    public String showOne(Model model, @PathVariable Long id) throws Throwable {
+        model.addAttribute("n", newsRepository.getOne(id));
+        addAsideListNews(model);
+
+        return "singleNewsPage";
     }
 
-    @PostMapping("/addWriter")
-    public String addWriter(@RequestParam String name) {
-        NewsWriter w = new NewsWriter();
-        w.setName(name);
-        newsWriterRepository.save(w);
-        return "redirect:/";
-    }
-
-    @PostMapping("/addCategory")
-    public String addCategory(@RequestParam String category) {
-        Category c = new Category();
-        c.setName(category);
-        c.setPinnedToMenu(false);
-        categoryRepository.save(c);
-
-        return "redirect:/";
-    }
 
     @GetMapping("/add")
     public String addNew(Model model) {
-        model.addAttribute("writers", newsWriterRepository.findAll());
-        model.addAttribute("categories", categoryRepository.findAll());
+        addAsideListNews(model);
         return "addNews";
     }
 
@@ -117,6 +103,13 @@ public class NewsController {
     public byte[] getContent(@PathVariable Long id) {
         News n = newsRepository.getOne(id);
         return n.getNewsObject().getContent();
+    }
+
+
+    private void addAsideListNews(Model model) {
+        model.addAttribute("writers", newsWriterRepository.findAll());
+        model.addAttribute("categories", categoryRepository.findAll());
+
     }
 
 }
