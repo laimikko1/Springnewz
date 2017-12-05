@@ -12,14 +12,17 @@
 
 <body>
 
+<div class th:replace="fragments/errors :: errors">
+</div>
+
 <div class="main">
     <form th:action="@{/addNews}" method="POST" id="newsform" enctype="multipart/form-data">
         <br>Otsikko</br>
-        <input type="text" name="header"/>
+        <input type="text" name="header" th:value="${news.header}"/>
         <br>Ingressi</br>
-        <textarea name="ingress" style="width: 600px; height: 100px;"></textarea>
+        <textarea name="ingress" th:value="${news.ingress}" style="width: 600px; height: 100px;"></textarea>
         <br>Content</br>
-        <textarea name="content" style="width: 600px; height: 100px;"></textarea>
+        <textarea name="content" th:value="${news.content}" style="width: 600px; height: 100px;"></textarea>
 
         <br>Writers:</br>
         <select name="writers" form="newsform" multiple="multiple">
