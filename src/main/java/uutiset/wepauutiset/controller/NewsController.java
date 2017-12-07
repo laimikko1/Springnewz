@@ -12,6 +12,8 @@ import uutiset.wepauutiset.repository.CategoryRepository;
 import uutiset.wepauutiset.repository.NewsObjectRepository;
 import uutiset.wepauutiset.repository.NewsRepository;
 import uutiset.wepauutiset.repository.NewsWriterRepository;
+import uutiset.wepauutiset.service.NewsFinderService;
+import uutiset.wepauutiset.service.NewsValidatorService;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -95,7 +97,7 @@ public class NewsController {
             String[] wr = writers.split(",");
 
             for (String w : wr) {
-                NewsWriter nw = newsWriterRepository.getOne(Long.parseLong((w)));
+                Newswriter nw = newsWriterRepository.getOne(Long.parseLong((w)));
                 news.addNewsWriter(nw);
             }
 

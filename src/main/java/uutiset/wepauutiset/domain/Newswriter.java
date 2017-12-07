@@ -17,9 +17,10 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Entity
-public class NewsWriter extends AbstractPersistable<Long> {
+public class Newswriter extends AbstractPersistable<Long> {
 
     private String name;
+    private String password;
 
     @ManyToMany(mappedBy = "writers")
     private List<News> writtenNews;

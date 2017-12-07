@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Orders</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/tyylisivu.css}"/>
+</head>
+
+<header th:replace="fragments/navbar :: header">
+    <p>testataan</p>
+</header>
+<body>
+<div class="main">
+    <form th:action="@{/login}" method="POST">
+        <br>Nimi</br>
+        <input type="text" name="header"/>
+
+        <br>Nimi</br>
+        <input type="password" name="header"/>
+
+
+        <input type="submit" value="Login!"/>
+    </form>
+
+
+</div>
+
+</body>
+<div class="aside">
+
+    <div th:replace="fragments/sideColumn :: luetuimmat">
+        <p>testi</p>
+    </div>
+
+    <div th:replace="fragments/sideColumn :: uusimmat">
+        <p>dodi</p>
+    </div>
+</div>

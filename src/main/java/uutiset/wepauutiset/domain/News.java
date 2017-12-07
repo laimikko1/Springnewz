@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -30,7 +29,7 @@ public class News extends AbstractPersistable<Long> {
     private LocalDate publishdate;
 
     @ManyToMany
-    private List<NewsWriter> writers;
+    private List<Newswriter> writers;
 
     @ManyToMany
     private List<Category> categories;
@@ -38,7 +37,7 @@ public class News extends AbstractPersistable<Long> {
     @OneToOne
     private NewsObject newsObject;
 
-    public void addNewsWriter(NewsWriter writer) {
+    public void addNewsWriter(Newswriter writer) {
         if (this.writers == null) {
             this.writers = new ArrayList<>();
         }

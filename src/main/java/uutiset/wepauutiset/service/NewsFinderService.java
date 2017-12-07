@@ -1,4 +1,4 @@
-package uutiset.wepauutiset.domain;
+package uutiset.wepauutiset.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
