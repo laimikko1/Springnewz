@@ -16,11 +16,15 @@ import java.util.Arrays;
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private NewsWriterRepository accountRepository;
+    private NewsWriterRepository newsWriterRepository;
+
+    @Autowired
+    private PasswordEncoderService passwordEncoderService;
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Newswriter account = accountRepository.findByName(username);
+        Newswriter account = newsWriterRepository.findByName(username);
         if (account == null) {
             throw new UsernameNotFoundException("No such user: " + username);
         }
@@ -34,4 +38,14 @@ public class CustomUserDetailsService implements UserDetailsService {
                 true,
                 Arrays.asList(new SimpleGrantedAuthority("USER")));
     }
+
+    public Newswriter createUser(String name, String password) {
+        Newswriter n = new Newswriter();
+        n.setName(name);
+        n.setPassword(passwordEncoderService.encode(password));
+
+        return newsWriterRepository.save(n);
+
+    }
+
 }

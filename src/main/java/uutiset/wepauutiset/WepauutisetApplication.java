@@ -24,18 +24,18 @@ public class WepauutisetApplication {
 
     }
 //
-    @Bean
-    InitializingBean sendDatabase() {
-        return () -> {
-            Newswriter nw = new Newswriter();
-            nw.setName("Mikko");
-            nw.setPassword("mikko");
-            Category c = new Category();
-            c.setName("Kategoria");
-            newsWriterRepository.save(nw);
-            categoryRepository.save(c);
-        };
-    }
+//    @Bean
+//    InitializingBean sendDatabase() {
+//        return () -> {
+//            Newswriter nw = new Newswriter();
+//            nw.setName("Mikko");
+//            nw.setPassword("mikko");
+//            Category c = new Category();
+//            c.setName("Kategoria");
+//            newsWriterRepository.save(nw);
+//            categoryRepository.save(c);
+//        };
+//    }
 
 
 }
