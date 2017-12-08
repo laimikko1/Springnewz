@@ -65,7 +65,9 @@ public class NewsController {
     @GetMapping("/news/edit/{newsId}")
     public String putOne(Model model, @PathVariable Long newsId) throws Throwable {
         addAsideListNewsAndNavbar(model);
-        return "null";
+        model.addAttribute("news", newsRepository.getOne(newsId));
+        model.addAttribute("categories", categoryRepository.findAll());
+        return "modifyNewsstory";
     }
 
     @GetMapping("/news/{category}")
@@ -89,6 +91,36 @@ public class NewsController {
         }
 
         return "addNews";
+    }
+
+    @PostMapping("news/edit/{id}")
+    public String modifyNews(@PathVariable Long id, RedirectAttributes rel, @RequestParam("newsObject") MultipartFile newsObject,
+                             @RequestParam String header,
+                             @RequestParam String ingress,
+                             @RequestParam String content,
+                             @RequestParam String categories) throws IOException {
+
+        NewsObject no = new NewsObject();
+        no.setContent(newsObject.getBytes());
+        newsObjectRepository.save(no);
+
+        News n = newsRepository.getOne(id);
+        n.setHeader(header);
+        n.setIngress(ingress);
+        n.setContent(content);
+
+
+        String[] c = categories.split(",");
+
+        for (String ct : c) {
+            Category nc = categoryRepository.getOne(Long.parseLong((ct)));
+            n.addCategory(nc);
+        }
+
+        n.setNewsObject(no);
+
+        newsRepository.save(n);
+        return "redirect:/";
     }
 
     @PostMapping("/addNews")

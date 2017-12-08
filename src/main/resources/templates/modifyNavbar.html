@@ -14,7 +14,7 @@
 
 <div class="main">
     <div class="article">
-        <form th:action="@{/modify/t}" method="POST">
+        <form class="newsform" th:action="@{/modify/t}" method="POST">
             <select class="select" name="categories" multiple="multiple">
                 <h2>Pinned categories: </h2>
                 <option th:each="category : ${notPinnedCategories}"

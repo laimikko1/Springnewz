@@ -12,8 +12,6 @@
 <body>
 
 
-
-
 <div class="main">
     <div class="article" th:each="n : ${news}">
         <a th:href="@{newsStory/{newsId}(newsId=${n.id})}">
@@ -23,7 +21,7 @@
             <p></p>
             <p th:text="${n.ingress}">INKIRESSI</p>
             <p></p>
-            <span id="article-category" th:each="c : ${n.categories}" th:text="${c.name}"></span>
+            <span class="article-category" th:each="c : ${n.categories}" th:text="${c.name}"></span>
         </a>
     </div>
 
@@ -42,5 +40,11 @@
 </div>
 
 
+<script
+        src="https://code.jquery.com/jquery-3.2.1.js"
+        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+        crossorigin="anonymous">
+
+</script>
 </body>
 </html>

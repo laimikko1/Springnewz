@@ -1,37 +1,30 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Orders</title>
     <meta charset="UTF-8"/>
     <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/tyylisivu.css}"/>
+    <title>Title</title>
 </head>
 
 <header th:replace="fragments/navbar :: header">
     <p>testataan</p>
 </header>
+
 <body>
 
-
-<div class="muokkausLinkki">
-    <a th:href="@{/news/edit/{id}(id=${n.id})}">Muokkaa uutista!</a>
+<div class th:replace="fragments/errors :: errors">
 </div>
-
 
 <div class="main">
-    <div class="article newspage-article">
-        <h1 th:text="${n.header}">n</h1>
-        <img th:src="@{/image/{id}/(id=${n.id})}"/>
-        <p></p>
-        <p></p>
-        <p th:text="${n.ingress}">INKIRESSI</p>
-        <pre th:text="${n.content}"></pre>
-        <p></p>
-        <span th:text="${n.publishdate}"></span>
-        <span th:each="nw : ${n.writers}" th:text="${nw.name}"></span>
-    </div>
+    <form class="newsform" th:action="@{/news/edit/{id}(id=${news.id})}" method="POST" enctype="multipart/form-data">
+        <div th:replace="fragments/newsFragment :: newsForm">
+
+        </div>
+
+        <input type="submit" value="Update newsstory!"/>
+    </form>
+
 </div>
-
-
 <div class="aside">
 
     <div th:replace="fragments/sideColumn :: luetuimmat">
@@ -43,6 +36,7 @@
     </div>
 </div>
 
-
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<script src="javascript/main.js"></script>
 </body>
 </html>

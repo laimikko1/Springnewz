@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Header template</title>
+</head>
+<body>
+
+
+<div th:fragment="newsForm">
+        <div class="newsFragment"></div>
+        <h2>Otsikko</h2>
+        <input type="text" name="header" th:value="${news.header}"/>
+        <p>Ingressi</p>
+        <textarea name="ingress" th:text="${news.ingress}" style="width: 600px; height: 100px;"></textarea>
+        <p>Content</p>
+        <textarea name="content" th:text="${news.content}" style="width: 600px; height: 100px;"></textarea>
+
+        <p>Writers:</p>
+        <select class="select" name="writers" multiple="multiple">
+            <option th:each="writer : ${writers}"
+                    th:value="${writer.id}"
+                    th:text="${writer.name}"></option>
+        </select>
+
+        <p>Categories:</p>
+
+        <select class="select" name="categories" multiple="multiple">
+            <option th:each="category : ${categories}"
+                    th:value="${category.id}"
+                    th:text="${category.name}"></option>
+        </select>
+
+        <p>News picture</p>
+        <input type="file" name="newsObject"/>
+
+
+</div>
+</div>
+
+</body>
+</html>

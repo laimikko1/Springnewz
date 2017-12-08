@@ -16,33 +16,10 @@
 </div>
 
 <div class="main">
-    <form th:action="@{/addNews}" method="POST" id="newsform" enctype="multipart/form-data">
-        <h2>Otsikko</h2>
-        <input type="text" name="header" th:value="${news.header}"/>
-        <p>Ingressi</p>
-        <textarea name="ingress" th:value="${news.ingress}" style="width: 600px; height: 100px;"></textarea>
-        <p>Content</p>
-        <textarea name="content" th:value="${news.content}" style="width: 600px; height: 100px;"></textarea>
-
-        <p>Writers:</p>
-        <select class="select" name="writers" form="newsform" multiple="multiple">
-            <option th:each="writer : ${writers}"
-                    th:value="${writer.id}"
-                    th:text="${writer.name}"></option>
-        </select>
-
-        <p>Categories:</p>
-
-        <select class="select" name="categories" form="newsform" multiple="multiple">
-            <option th:each="category : ${categories}"
-                    th:value="${category.id}"
-                    th:text="${category.name}"></option>
-        </select>
-
-        <p>News picture</p>
-        <input type="file" name="newsObject"/>
-
-        <input type="submit" value="Send!"/>
+    <form class="newsform" th:action="@{/addNews}" method="POST"  enctype="multipart/form-data">
+        <div th:replace="fragments/newsFragment :: newsForm">
+        </div>
+        <input type="submit" value="Add a newsstory!"/>
     </form>
 
 </div>
@@ -57,5 +34,7 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<script src="javascript/main.js"></script>
 </body>
 </html>
