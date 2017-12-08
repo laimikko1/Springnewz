@@ -9,11 +9,10 @@
 <header th:fragment="header">
     <div class="navbar">
         <ul>
-            <li>Etusivu</li>
-            <li>Kotimaa</li>
-            <li>Ulkomaa</li>
-            <li>Talous</li>
-            <li>Urheilu</li>
+            <li> <a th:href="@{/}">Etusivu</a></li>
+            <li th:each="c : ${navbarCategories}">
+                <a th:href="@{/news/{category}(category=${c.name})}"><span th:text="${c.name}"></span> </a></li>
+            <li> <a th:href="@{/modify}">Muokkaa näkymää</a></li>
         </ul>
 
     </div>

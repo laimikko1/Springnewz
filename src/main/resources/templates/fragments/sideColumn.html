@@ -10,7 +10,7 @@
     <div th:fragment="uusimmat">
     <h2>Suosituimmat</h2>
     <ul>
-        <li th:if="${news != null}" th:each="n : ${news}">
+        <li th:if="${newest != null}" th:each="n : ${newest}">
             <span th:text="${n.header}">msg</span>
             <p></p><span th:text="${n.publishdate}">date</span>
         </li>
@@ -20,7 +20,7 @@
 <div th:fragment="luetuimmat">
     <h2>Luetuimmat</h2>
     <ul>
-        <li th:if="${news != null}" th:each="n : ${news}">
+        <li th:if="${mostPopular != null}" th:each="n : ${mostPopular}">
             <span th:text="${n.header}">msg</span>
             <p></p><span th:text="${n.publishdate}">date</span>
         </li>

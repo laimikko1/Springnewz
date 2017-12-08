@@ -20,7 +20,7 @@ public class Category extends AbstractPersistable<Long>{
 
     private String name;
 
-    private boolean isPinnedToMenu;
+    private boolean pinned;
 
     @ManyToMany(mappedBy = "categories")
     private List<News> categoryNews;

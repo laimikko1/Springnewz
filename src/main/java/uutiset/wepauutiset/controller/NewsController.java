@@ -43,12 +43,13 @@ public class NewsController {
     @GetMapping("/")
     public String showIndex(Model model) {
         model.addAttribute("news", newsFinderService.findNewest());
-        addAsideListNews(model);
+        addAsideListNewsAndNavbar(model);
         return "index";
 
     }
 
-    @GetMapping("/news/{newsId}")
+    @Transactional
+    @GetMapping("/newsStory/{newsId}")
     public String showOne(Model model, @PathVariable Long newsId) throws Throwable {
         News n = newsRepository.getOne(newsId);
         n.addclick();
@@ -56,21 +57,37 @@ public class NewsController {
         model.addAttribute("n", n);
         model.addAttribute("writers", newsWriterRepository.findAll());
         model.addAttribute("categories", categoryRepository.findAll());
+        addAsideListNewsAndNavbar(model);
 
-        addAsideListNews(model);
+        return "newsStory";
+    }
 
-        return "singleNewsPage";
+    @GetMapping("/news/edit/{newsId}")
+    public String putOne(Model model, @PathVariable Long newsId) throws Throwable {
+        addAsideListNewsAndNavbar(model);
+        return "null";
+    }
+
+    @GetMapping("/news/{category}")
+    public String findAllByCategory(Model model, @PathVariable String category) throws Throwable {
+        Category c = categoryRepository.findByName(category);
+        model.addAttribute("news", c.getCategoryNews());
+        addAsideListNewsAndNavbar(model);
+        return "newsCategoryPage";
     }
 
 
     @GetMapping("/add")
     public String addNew(Model model) {
-        addAsideListNews(model);
+        addAsideListNewsAndNavbar(model);
         model.addAttribute("writers", newsWriterRepository.findAll());
         model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("navbarCategories", categoryRepository.findByPinned(new Boolean(true)));
+
         if (!model.asMap().containsKey("news")) {
             model.addAttribute("news", new News());
         }
+
         return "addNews";
     }
 
@@ -119,6 +136,7 @@ public class NewsController {
 
         news.setNewsObject(no);
         news.setPublishdate(LocalDate.now());
+        news.setClicks(0);
         newsRepository.save(news);
 
         return "redirect:/";
@@ -133,7 +151,9 @@ public class NewsController {
     }
 
 
-    private void addAsideListNews(Model model) {
+    @Transactional
+    public void addAsideListNewsAndNavbar(Model model) {
+        model.addAttribute("navbarCategories", categoryRepository.findByPinned(new Boolean(true)));
         model.addAttribute("newest", newsFinderService.findNewest());
         model.addAttribute("mostPopular", newsFinderService.findMostPopular());
     }

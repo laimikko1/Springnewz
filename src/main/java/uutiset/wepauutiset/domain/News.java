@@ -3,7 +3,9 @@ package uutiset.wepauutiset.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
@@ -21,7 +23,7 @@ public class News extends AbstractPersistable<Long> {
     private String header;
 
     private String ingress;
-    @Size(max = 1000)
+    @Size(min = 50, max = 1000)
     private String content;
 
     private Integer clicks;

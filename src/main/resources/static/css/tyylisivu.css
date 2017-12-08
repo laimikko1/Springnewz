@@ -27,8 +27,8 @@ html * {
 }
 
 .article p {
-    color:white;
-    font-weight:bold;
+    color: white;
+    font-weight: bold;
 }
 
 .article a:link {
@@ -84,7 +84,6 @@ img {
     font-weight: bold;
     font-size: 14px;
 
-
 }
 
 .aside ul {
@@ -99,16 +98,32 @@ img {
 
 .navbar ul {
     list-style-type: none;
-    margin: 0;
     background: mediumseagreen;
     border-radius: 10px;
     margin: 50px;
+    padding: 15px;
+    padding-left: 20px;
 
 }
 
 .navbar li {
-    padding: 25px;
     display: inline-block;
+
+}
+
+.navbar a {
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 15px;
+    font-weight: bold;
+    color: white;
+
+
+}
+
+.navbar a:hover {
+    background: white;
+    color: mediumseagreen;
 
 }
 
@@ -116,9 +131,7 @@ img {
     float: right;
 }
 
-.navbar li:hover {
-    background: white;
-}
+
 
 form input:not([type=submit]) {
     display: block; /* IE fix */
@@ -131,3 +144,47 @@ form textarea {
     min-width: 0; /* fix for min-width: auto */
     margin: 10px;
 }
+
+#newsform input {
+    font-size: 25px;
+    border-radius: 15px;
+    background-color: mediumseagreen;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+}
+
+#newsform textarea {
+    font-size: 25px;
+    border-radius: 15px;
+    background-color: mediumseagreen;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+}
+
+#newsform p {
+    font-size: 25px;
+    border-radius: 15px;
+    color: mediumseagreen;
+    font-weight: bold;
+    padding: 10px;
+
+}
+
+.select {
+    font-size: 20px;
+    width: 500px;
+    padding: 10px;
+    background-color: mediumseagreen;
+    color: white;
+    font-weight: bold;
+    margin-top: 15px;
+    border-radius: 15px;
+}
+
+.select option {
+    padding: 3px;
+}
+
+

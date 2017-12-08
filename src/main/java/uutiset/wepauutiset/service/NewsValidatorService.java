@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class NewsValidatorService {
+public class NewsValidatorService extends ValidationService {
 
 
     public List<String> validateNews(News news) {
@@ -18,23 +18,9 @@ public class NewsValidatorService {
         validateGiven("Otsikon", news.getHeader(), errors, 5, 50);
         validateGiven("Ingressin", news.getIngress(), errors, 10, 255);
         checkWritersAndCategory(news, errors);
-
         return errors;
     }
 
-    public static boolean checkString(String toValidate, int minLenght, int maxLength) {
-        if(toValidate.length() >= minLenght) {
-            return toValidate.length() <= maxLength;
-        }
-        return false;
-
-    }
-
-    public static void validateGiven(String prefix, String validatable, ArrayList<String> errors, int min, int max) {
-        if (!checkString(validatable, 5, 30)) {
-            errors.add(prefix + " pituus tulee olla " + min + " ja " + max + " merkin välillä.");
-        }
-    }
 
     public static void checkWritersAndCategory(News news, ArrayList<String> errors) {
         if (news.getWriters() == null) {

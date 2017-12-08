@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Orders</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/tyylisivu.css}"/>
+</head>
+
+<header th:replace="fragments/navbar :: header">
+    <p>testataan</p>
+</header>
+<body>
+
+
+<div class="main">
+    <div class="article">
+        <form th:action="@{/modify/t}" method="POST">
+            <select class="select" name="categories" multiple="multiple">
+                <h2>Pinned categories: </h2>
+                <option th:each="category : ${notPinnedCategories}"
+                        th:value="${category.name}"
+                        th:text="${category.name}"></option>
+            </select>
+            <input type="submit" value="Pin to navbar!"/>
+        </form>
+    </div>
+
+    <div class="article">
+        <form th:action="@{/modify/f}" method="POST">
+            <select class="select" name="categories" multiple="multiple">
+                <h2>Non-pinned categories</h2>
+                <option th:each="category : ${pinnedCategories}"
+                        th:value="${category.name}"
+                        th:text="${category.name}"></option>
+            </select>
+            <input type="submit" value="Remove from navbar!"/>
+        </form>
+    </div>
+
+</div>
+
+
+<div class="aside">
+
+    <div th:replace="fragments/sideColumn :: luetuimmat">
+        <p>testi</p>
+    </div>
+
+    <div th:replace="fragments/sideColumn :: uusimmat">
+        <p>dodi</p>
+    </div>
+</div>
+
+
+</body>
+</html>

@@ -30,9 +30,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/h2-console/*").permitAll()
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/").permitAll()
+                .antMatchers("/newsStory/**").permitAll()
                 .antMatchers("/news/*").permitAll()
                 .antMatchers("/css/tyylisivu.css").permitAll()
-                .anyRequest().authenticated();
+                .antMatchers("/modify").permitAll();
+
+        http.authorizeRequests()
+                .antMatchers("/logout").authenticated()
+                .antMatchers("/add").authenticated()
+                .antMatchers("/news/edit/**").authenticated();
+
+
         http.formLogin()
                 .permitAll()
                 .and()

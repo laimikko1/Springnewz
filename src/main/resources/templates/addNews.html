@@ -17,31 +17,29 @@
 
 <div class="main">
     <form th:action="@{/addNews}" method="POST" id="newsform" enctype="multipart/form-data">
-        <br>Otsikko</br>
+        <h2>Otsikko</h2>
         <input type="text" name="header" th:value="${news.header}"/>
-        <br>Ingressi</br>
+        <p>Ingressi</p>
         <textarea name="ingress" th:value="${news.ingress}" style="width: 600px; height: 100px;"></textarea>
-        <br>Content</br>
+        <p>Content</p>
         <textarea name="content" th:value="${news.content}" style="width: 600px; height: 100px;"></textarea>
 
-        <br>Writers:</br>
-        <select name="writers" form="newsform" multiple="multiple">
-            <option value="">Select writers</option>
+        <p>Writers:</p>
+        <select class="select" name="writers" form="newsform" multiple="multiple">
             <option th:each="writer : ${writers}"
                     th:value="${writer.id}"
                     th:text="${writer.name}"></option>
         </select>
 
-        <br>Categories:</br>
+        <p>Categories:</p>
 
-        <select name="categories" form="newsform" multiple="multiple">
-            <option value="">Select writers</option>
+        <select class="select" name="categories" form="newsform" multiple="multiple">
             <option th:each="category : ${categories}"
                     th:value="${category.id}"
                     th:text="${category.name}"></option>
         </select>
 
-        <br>News picture</br>
+        <p>News picture</p>
         <input type="file" name="newsObject"/>
 
         <input type="submit" value="Send!"/>

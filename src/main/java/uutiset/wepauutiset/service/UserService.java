@@ -15,7 +15,7 @@ public class UserService {
     private NewsWriterRepository newsWriterRepository;
 
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private PasswordEncoderService bCryptPasswordEncoder;
 
     @Autowired
     private CustomUserDetailsService userDetailsService;
