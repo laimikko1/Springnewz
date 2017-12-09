@@ -9,8 +9,11 @@
 <header th:replace="fragments/navbar :: header">
     <p>testataan</p>
 </header>
+
+
 <body>
 
+<div th:replace="fragments/messages :: messages"></div>
 
 <div class="main">
     <div class="article" th:each="n : ${news}">

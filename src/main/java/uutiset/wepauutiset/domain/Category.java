@@ -24,7 +24,7 @@ import java.util.List;
 @Valid
 
 public class Category extends AbstractPersistable<Long> {
-    @NotEmpty
+
     @Size(min = 3, max = 15)
     private String name;
 
@@ -34,9 +34,5 @@ public class Category extends AbstractPersistable<Long> {
     @ManyToMany(mappedBy = "categories")
     private List<News> categoryNews;
 
-
-    public void sortByReleaseDAte() {
-        Collections.sort(categoryNews, Comparator.comparing(News::getPublishdate));
-    }
 
 }

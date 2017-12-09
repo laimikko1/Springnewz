@@ -69,31 +69,6 @@ img {
     border: none;
 }
 
-.aside {
-    margin-right: 200px;
-    float: right;
-    width: 180px;
-}
-
-.aside li {
-    padding: 10px;
-    list-style: none;
-    margin: 10px 0;
-    color: white;
-    font-weight: bold;
-    font-size: 14px;
-
-}
-
-.aside ul {
-    margin-right: 10px;
-    border-style: solid;
-    border-color: white;
-    background-color: mediumseagreen;
-    margin-bottom: 80px;
-    width: 300px;
-
-}
 
 .navbar ul {
     list-style-type: none;
@@ -152,10 +127,12 @@ form textarea {
     color: white;
     font-weight: bold;
     padding: 10px;
+    margin-top:15px;
+
 }
 
 .newsform textarea {
-    font-size: 25px;
+    font-size: 20px;
     border-radius: 15px;
     background-color: mediumseagreen;
     color: white;
@@ -164,7 +141,7 @@ form textarea {
 }
 
 .newsform p {
-    font-size: 25px;
+    font-size: 20px;
     border-radius: 15px;
     color: mediumseagreen;
     font-weight: bold;
@@ -185,6 +162,71 @@ form textarea {
 
 .select option {
     padding: 3px;
+}
+
+.errors ul {
+    width: 500px;
+    background-color: pink;
+    color: red;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    border-radius: 10px;
+    margin-left: 20px;
+}
+
+.errors {
+    margin-left: 25px;
+}
+
+.errors li {
+    padding: 5px;
+}
+
+
+
+.messages ul {
+    width: 500px;
+    background-color: mediumaquamarine;
+    color: green;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    border-radius: 10px;
+    margin-left: 20px;
+}
+
+.messages li {
+    padding: 10px;
+}
+
+li a {
+    text-decoration: none;
+    color: white;
+}
+
+
+.aside {
+    margin-right: 200px;
+    float: right;
+    width: 180px;
+}
+
+.aside li {
+    padding: 10px;
+    list-style: none;
+    margin: 10px 0;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.aside ul {
+    margin-right: 10px;
+    border-style: solid;
+    border-color: white;
+    background-color: mediumseagreen;
+    margin-bottom: 80px;
+    width: 300px;
+
 }
 
 

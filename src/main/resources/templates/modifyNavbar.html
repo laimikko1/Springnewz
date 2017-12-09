@@ -21,12 +21,11 @@
                         th:value="${category.name}"
                         th:text="${category.name}"></option>
             </select>
+            <!--Vähän ruma, mutta muuta en keksinyt, tää pentele jäi samalle riville-->
+            <br>
             <input type="submit" value="Pin to navbar!"/>
         </form>
-    </div>
-
-    <div class="article">
-        <form th:action="@{/modify/f}" method="POST">
+        <form class="newsform" th:action="@{/modify/f}" method="POST">
             <select class="select" name="categories" multiple="multiple">
                 <h2>Non-pinned categories</h2>
                 <option th:each="category : ${pinnedCategories}"

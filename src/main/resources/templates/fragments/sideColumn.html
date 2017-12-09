@@ -7,24 +7,30 @@
 <body>
 
 
-    <div th:fragment="uusimmat">
-    <h2>Suosituimmat</h2>
-    <ul>
-        <li th:if="${newest != null}" th:each="n : ${newest}">
-            <span th:text="${n.header}">msg</span>
-            <p></p><span th:text="${n.publishdate}">date</span>
-        </li>
-    </ul>
+<div th:fragment="luetuimmat">
+    <h2>Viime viikon luetuimmat uutiset</h2>
+    <div th:if="${!#lists.isEmpty(mostPopular)}">
+        <ul>
+            <li th:each="n : ${mostPopular}">
+                <a th:href="@{/newsStory/{id}(id=${n.id})}"><span th:text="${n.header}">msg</span></a>
+                <p></p><span>Julkaistu: </span><span th:text="${n.publishdate}">date</span>
+            </li>
+        </ul>
+    </div>
 </div>
 
-<div th:fragment="luetuimmat">
-    <h2>Luetuimmat</h2>
-    <ul>
-        <li th:if="${mostPopular != null}" th:each="n : ${mostPopular}">
-            <span th:text="${n.header}">msg</span>
-            <p></p><span th:text="${n.publishdate}">date</span>
-        </li>
-    </ul>
+
+<div th:fragment="uusimmat">
+    <h2>Uusimmat</h2>
+    <div th:if="${!#lists.isEmpty(newest)}">
+        <ul>
+            <li th:each="n : ${newest}">
+                <a th:href="@{/newsStory/{id}(id=${n.id})}"><span th:text="${n.header}">msg</span></a>
+
+                <p></p><span>Julkaistu: </span><span th:text="${n.publishdate}">date</span>
+            </li>
+        </ul>
+    </div>
 </div>
 
 </body>

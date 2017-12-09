@@ -5,10 +5,13 @@
     <title>Header template</title>
 </head>
 <body>
-
-<div th:fragment="errors">
-    <ul>
-        <li th:each="error : ${errors}" th:text="${error}"></li>
-    </ul>
+<div class="errors" th:fragment="errors">
+    <div th:if="${errors != null}">
+        <ul>
+            <li t th:each="error : ${errors}" th:text="${error}"></li>
+        </ul>
+    </div>
 </div>
+</body>
+
 

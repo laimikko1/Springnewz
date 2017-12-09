@@ -10,23 +10,19 @@
     <p>testataan</p>
 </header>
 
+<div th:replace="fragments/errors :: errors"></div>
+
 <body>
 
 <div class="main">
-    <form th:action="@{/addWriter}" method="POST">
-        <br>Nimi</br>
-        <input type="text" name="name"/>
+    <div class="article">
+        <form class="newsform" th:object="${category}" th:action="@{/addCategory}" method="POST">
+            <br>Kategorian nimi</br>
+            <input th:field="*{name}" type="text"/>
 
-        <input type="submit" value="Add news!"/>
-    </form>
-
-    <form th:action="@{/addCategory}" method="POST">
-        <br>Kategorian nimi</br>
-        <input type="text" name="category"/>
-
-        <input type="submit" value="Add category!"/>
-    </form>
-
+            <input type="submit" value="Add category!"/>
+        </form>
+    </div>
 </div>
 
 

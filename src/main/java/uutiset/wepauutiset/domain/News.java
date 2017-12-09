@@ -19,21 +19,19 @@ import java.util.List;
 @Entity
 @Data
 @Valid
-public class News extends AbstractPersistable<Long> {
+public class News extends AbstractPersistable<Long> implements Comparable<News> {
 
-    @NotEmpty(message = "Header must not be empty!")
     @Size(min = 5, max = 20, message = "Header must be between 5 and 20 characters!")
     private String header;
 
-    @NotEmpty(message = "Ingress must not be empty!")
     @Size(min = 10, max = 250, message = "Ingress must be between 10 and 250 characters!")
     private String ingress;
 
-    @NotEmpty(message = "Content must not be empty!")
     @Size(min = 50, max = 1000, message = "Content must be between 50 and 1000 characters!")
     private String content;
 
-    private Integer clicks;
+    @OneToMany
+    private List<NewsClick> clicks;
 
     private LocalDate publishdate;
 
@@ -64,7 +62,12 @@ public class News extends AbstractPersistable<Long> {
     }
 
 
-    public void addLick() {
-        this.clicks++;
+    public void addLick(NewsClick newsClick) {
+        this.clicks.add(newsClick);
+    }
+
+    @Override
+    public int compareTo(News news) {
+        return this.clicks.size() - news.clicks.size();
     }
 }
