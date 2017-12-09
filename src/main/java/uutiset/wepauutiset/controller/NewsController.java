@@ -63,7 +63,7 @@ public class NewsController {
     @GetMapping("/newsStory/{newsId}")
     public String showOne(Model model, @PathVariable Long newsId) throws Throwable {
         News news = newsRepository.getOne(newsId);
-        news.addclick();
+        news.addLick();
         newsRepository.save(news);
         model.addAttribute("n", news);
         model.addAttribute("writers", newsWriterRepository.findAll());

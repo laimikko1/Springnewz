@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class NewsValidatorService extends ValidationService {
+public class NewsValidatorService {
 
     public List<String> getErrorMessages(BindingResult bindingResult) {
         List<String> e = new ArrayList<>();

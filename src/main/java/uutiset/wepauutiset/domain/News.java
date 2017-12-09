@@ -3,16 +3,12 @@ package uutiset.wepauutiset.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Fetch;
 import org.springframework.data.jpa.domain.AbstractPersistable;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -51,7 +47,6 @@ public class News extends AbstractPersistable<Long> {
     @ManyToMany
     private List<Category> categories;
 
-
     public void addNewsWriter(Newswriter writer) {
         if (this.writers == null) {
             this.writers = new ArrayList<>();
@@ -68,11 +63,8 @@ public class News extends AbstractPersistable<Long> {
         this.categories.add(category);
     }
 
-    public void addclick() {
+
+    public void addLick() {
         this.clicks++;
-
     }
-
-
-
 }
