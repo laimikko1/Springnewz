@@ -15,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import uutiset.wepauutiset.service.CustomUserDetailsService;
 
 @Configuration
-@EnableGlobalMethodSecurity(securedEnabled = true, proxyTargetClass = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
@@ -24,6 +24,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         // mahdollistetaan h2-konsolin käyttö
         http.csrf().disable();
         http.headers().frameOptions().sameOrigin();
@@ -46,8 +47,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.formLogin()
                 .permitAll()
                 .and()
+                .logout()
+                .logoutSuccessUrl("/")
+                .and()
                 .formLogin()
                 .defaultSuccessUrl("/");
+
     }
 
     @Autowired

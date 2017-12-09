@@ -2,6 +2,9 @@ package uutiset.wepauutiset.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -16,6 +19,7 @@ import uutiset.wepauutiset.repository.NewsRepository;
 import uutiset.wepauutiset.repository.NewsWriterRepository;
 import uutiset.wepauutiset.service.NewsFinderService;
 import uutiset.wepauutiset.service.NewsValidatorService;
+import uutiset.wepauutiset.service.SecurityService;
 
 import javax.naming.Binding;
 import javax.validation.Valid;
@@ -43,6 +47,9 @@ public class NewsController {
 
     @Autowired
     private NewsValidatorService newsValidatorService;
+
+    @Autowired
+    private SecurityService securityService;
 
     @GetMapping("/")
     public String showIndex(Model model) {
@@ -80,14 +87,14 @@ public class NewsController {
         return "modifyNewsstory";
     }
 
+
     @GetMapping("/news/{category}")
     public String findAllByCategory(Model model, @PathVariable String category) throws Throwable {
         Category c = categoryRepository.findByName(category);
-        model.addAttribute("news", c.getCategoryNews());
+        model.addAttribute("news", newsFinderService.findAllByCategory(c.getId()));
         addAsideListNewsAndNavbar(model);
         return "newsCategoryPage";
     }
-
 
     @GetMapping("/add")
     public String addNew(@ModelAttribute News news, BindingResult bindingResult, Model model) {
@@ -111,6 +118,12 @@ public class NewsController {
             MultipartFile newsObject, @RequestParam Long editId) throws IOException {
         // TOOOODELLA huono viritelmä, mutta en keksinyt miten @ModelAttributen ja olemassaolevan olion saa juttelemaan
         // keskenään mitenkään erityisen fiksusti, joten tein purkkamaisen redirectin ja talletan sitten viestit siihen
+
+        if (securityService.checkCredentials()) {
+            return "redirect:/";
+        }
+
+
         if (bindingResult.hasErrors()) {
             news.setEditId(editId);
             rel.addFlashAttribute("errors", newsValidatorService.getErrorMessages(bindingResult));
@@ -131,11 +144,15 @@ public class NewsController {
         return "redirect:/";
     }
 
-    @Secured("ADM")
     @PostMapping("/addNews")
     public String addNews(@Valid @ModelAttribute News news, BindingResult bindingResult,
                           Model model, @RequestParam("newsObject")
                                   MultipartFile newsObject) throws IOException {
+
+        if (!securityService.checkCredentials()) {
+            return "redirect:/";
+        }
+
 
         if (bindingResult.hasErrors()) {
             List<String> e = newsValidatorService.getErrorMessages(bindingResult);
@@ -173,7 +190,6 @@ public class NewsController {
         model.addAttribute("newest", newsFinderService.findNewest());
         model.addAttribute("mostPopular", newsFinderService.findMostPopular());
     }
-
 
 
 }

@@ -23,6 +23,8 @@ public class CategoryAndWriterController {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+
     @Autowired
     private NewsFinderService newsFinderService;
 
@@ -31,9 +33,11 @@ public class CategoryAndWriterController {
     public String modifyCategories(Model model) {
         model.addAttribute("pinnedCategories", categoryRepository.findByPinned(true));
         model.addAttribute("notPinnedCategories", categoryRepository.findByPinned(false));
+
         model.addAttribute("newest", newsFinderService.findNewest());
         model.addAttribute("mostPopular", newsFinderService.findMostPopular());
-        newsFinderService.findMostPopular();
+        model.addAttribute("navbarCategories", categoryRepository.findByPinned(true));
+
 
         return "modifyNavbar";
     }

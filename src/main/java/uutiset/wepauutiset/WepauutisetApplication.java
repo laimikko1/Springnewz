@@ -37,7 +37,7 @@ public class WepauutisetApplication {
             Category c = new Category();
             c.setName("Urheilu");
             t.setPinned(false);
-//            newsWriterRepository.save(userService.createUser("mikko", "salasana"));
+            newsWriterRepository.save(userService.createUser("mikko", "salasana"));
             categoryRepository.save(t);
             categoryRepository.save(c);
         };

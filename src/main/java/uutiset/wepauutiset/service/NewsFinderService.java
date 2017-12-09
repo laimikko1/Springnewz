@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import uutiset.wepauutiset.domain.News;
 import uutiset.wepauutiset.repository.NewsRepository;
 
 
@@ -32,7 +33,8 @@ public class NewsFinderService {
 
     }
 
-    public Page findAllByCategoryAndTime() {
-        return null;
+    public List<News> findAllByCategory(Long id) {
+        return newsRepository.findByCategory(id);
     }
+
 }

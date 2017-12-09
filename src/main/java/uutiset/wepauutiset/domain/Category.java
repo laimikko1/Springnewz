@@ -13,6 +13,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Entity
@@ -21,9 +23,9 @@ import java.util.List;
 @Data
 @Valid
 
-public class Category extends AbstractPersistable<Long>{
+public class Category extends AbstractPersistable<Long> {
     @NotEmpty
-    @Size(min= 3, max= 15)
+    @Size(min = 3, max = 15)
     private String name;
 
     @NotNull
@@ -31,5 +33,10 @@ public class Category extends AbstractPersistable<Long>{
 
     @ManyToMany(mappedBy = "categories")
     private List<News> categoryNews;
+
+
+    public void sortByReleaseDAte() {
+        Collections.sort(categoryNews, Comparator.comparing(News::getPublishdate));
+    }
 
 }

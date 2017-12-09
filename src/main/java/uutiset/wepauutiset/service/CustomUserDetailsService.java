@@ -39,13 +39,5 @@ public class CustomUserDetailsService implements UserDetailsService {
                 Arrays.asList(new SimpleGrantedAuthority("USER")));
     }
 
-    public Newswriter createUser(String name, String password) {
-        Newswriter n = new Newswriter();
-        n.setName(name);
-        n.setPassword(passwordEncoderService.encode(password));
-
-        return newsWriterRepository.save(n);
-
-    }
 
 }

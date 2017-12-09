@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.springframework.org/security/tags">
 <head>
     <meta charset="UTF-8"/>
     <title>Header template</title>
@@ -9,10 +10,19 @@
 <header th:fragment="header">
     <div class="navbar">
         <ul>
-            <li> <a th:href="@{/}">Etusivu</a></li>
+            <li><a th:href="@{/}">Etusivu</a></li>
             <li th:each="c : ${navbarCategories}">
                 <a th:href="@{/news/{category}(category=${c.name})}"><span th:text="${c.name}"></span> </a></li>
-            <li> <a th:href="@{/modify}">Muokkaa näkymää</a></li>
+            <li><a th:href="@{/modify}">Muokkaa näkymää</a></li>
+            <li class="optional" sec:authorize="hasAuthority('USER')">
+                <a th:href="@{/add}">Lisää uutinen</a></li>
+            <li class="optional" sec:authorize="hasAuthority('USER')">
+                <a th:href="@{/logout}">Kirjaudu ulos</a></li>
+            </li>
+            <li class="optional" sec:authorize="isAnonymous()">
+                <a th:href="@{/login}">Kirjaudu</a></li>
+
+            </li>
         </ul>
 
     </div>

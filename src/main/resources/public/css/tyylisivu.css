@@ -129,6 +129,10 @@ img {
     float: right;
 }
 
+.navbar .optional {
+    float: right;
+}
+
 form input:not([type=submit]) {
     display: block; /* IE fix */
     min-width: 0; /* fix for min-width: auto */
