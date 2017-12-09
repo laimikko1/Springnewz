@@ -20,4 +20,6 @@ public class NewsObject extends AbstractPersistable<Long> {
     @OneToOne
     private News news;
 
+
+
 }

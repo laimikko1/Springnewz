@@ -16,7 +16,7 @@
 </div>
 
 <div class="main">
-    <form class="newsform" th:action="@{/news/edit/{id}(id=${news.id})}" method="POST" enctype="multipart/form-data">
+    <form class="newsform" th:action="@{/news/edit}" th:object="${news}" method="POST" enctype="multipart/form-data">
         <div th:replace="fragments/newsFragment :: newsForm">
 
         </div>

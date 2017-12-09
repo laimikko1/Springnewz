@@ -10,6 +10,9 @@
     <p>testataan</p>
 </header>
 <body>
+
+<div th:replace="fragments/errors :: errors"></div>
+
 <div class="main">
     <form th:action="@{/registration}" method="POST">
         <br>Nimi</br>

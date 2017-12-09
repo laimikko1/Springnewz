@@ -7,4 +7,5 @@ import uutiset.wepauutiset.domain.NewsObject;
 
 
 public interface NewsObjectRepository extends JpaRepository<NewsObject, Long> {
+    NewsObject findByNews(News news);
 }

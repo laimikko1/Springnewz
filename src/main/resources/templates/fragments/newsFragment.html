@@ -8,32 +8,43 @@
 
 
 <div th:fragment="newsForm">
-        <div class="newsFragment"></div>
-        <h2>Otsikko</h2>
-        <input type="text" name="header" th:value="${news.header}"/>
-        <p>Ingressi</p>
-        <textarea name="ingress" th:text="${news.ingress}" style="width: 600px; height: 100px;"></textarea>
-        <p>Content</p>
-        <textarea name="content" th:text="${news.content}" style="width: 600px; height: 100px;"></textarea>
+    <div class="newsFragment"></div>
+    <h2>Otsikko</h2>
+    <input type="text" th:field="*{header}" th:value="${news.header}"/>
+    <p>Ingressi</p>
+    <textarea onkeyup="calculateIngress();" th:field="*{ingress}" th:text="${news.ingress}"
+              style="width: 600px; height: 100px;"></textarea>
 
-        <p>Writers:</p>
-        <select class="select" name="writers" multiple="multiple">
-            <option th:each="writer : ${writers}"
-                    th:value="${writer.id}"
-                    th:text="${writer.name}"></option>
-        </select>
+    <span id="ingressCount"></span>
 
-        <p>Categories:</p>
 
-        <select class="select" name="categories" multiple="multiple">
-            <option th:each="category : ${categories}"
-                    th:value="${category.id}"
-                    th:text="${category.name}"></option>
-        </select>
+    <p>Content</p>
+    <textarea onkeyup="calculateContent();" th:field="*{content}" th:text="${news.content}"
+              style="width: 600px; height: 100px;"></textarea>
 
-        <p>News picture</p>
-        <input type="file" name="newsObject"/>
+    <span id="contentCount"></span>
 
+
+    <p>Writers:</p>
+    <select onkeydown="calculateIngress();" class="select" name="writers" multiple="multiple">
+        <option th:each="writer : ${writers}"
+                th:value="${writer.id}"
+                th:text="${writer.name}"></option>
+    </select>
+
+    <p>Categories:</p>
+
+    <select class="select" name="categories" multiple="multiple">
+        <option th:each="category : ${categories}"
+                th:value="${category.id}"
+                th:text="${category.name}"></option>
+    </select>
+
+
+    <p>News picture</p>
+    <input type="file" th:name="newsObject"/>
+
+    <input type="hidden" th:value="${news.editId}" name="editId"/>
 
 </div>
 </div>

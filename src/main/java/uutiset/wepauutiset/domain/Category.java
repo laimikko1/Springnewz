@@ -9,17 +9,24 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Valid
 
 public class Category extends AbstractPersistable<Long>{
-
+    @NotEmpty
+    @Size(min= 3, max= 15)
     private String name;
 
+    @NotNull
     private boolean pinned;
 
     @ManyToMany(mappedBy = "categories")

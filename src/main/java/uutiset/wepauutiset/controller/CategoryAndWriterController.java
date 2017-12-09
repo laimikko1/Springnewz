@@ -5,10 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import uutiset.wepauutiset.domain.Category;
 import uutiset.wepauutiset.domain.Newswriter;
 import uutiset.wepauutiset.repository.CategoryRepository;
@@ -16,6 +13,7 @@ import uutiset.wepauutiset.repository.NewsWriterRepository;
 import uutiset.wepauutiset.service.NewsFinderService;
 
 import javax.persistence.PreUpdate;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +39,8 @@ public class CategoryAndWriterController {
     }
 
     @PostMapping("/modify/{param}")
-    public String modifyCategories(@RequestParam(required = false) List<String> categories, @PathVariable String param) throws Exception {
+    public String modifyCategories(@RequestParam(required = false) List<String> categories,
+                                   @PathVariable String param) throws Exception {
         boolean p = true;
         if (categories != null) {
             if (!param.equals("t")) {

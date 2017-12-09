@@ -1,9 +1,11 @@
 package uutiset.wepauutiset.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -15,8 +17,11 @@ import uutiset.wepauutiset.repository.NewsWriterRepository;
 import uutiset.wepauutiset.service.NewsFinderService;
 import uutiset.wepauutiset.service.NewsValidatorService;
 
+import javax.naming.Binding;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -39,7 +44,6 @@ public class NewsController {
     @Autowired
     private NewsValidatorService newsValidatorService;
 
-
     @GetMapping("/")
     public String showIndex(Model model) {
         model.addAttribute("news", newsFinderService.findNewest());
@@ -51,10 +55,10 @@ public class NewsController {
     @Transactional
     @GetMapping("/newsStory/{newsId}")
     public String showOne(Model model, @PathVariable Long newsId) throws Throwable {
-        News n = newsRepository.getOne(newsId);
-        n.addclick();
-        newsRepository.save(n);
-        model.addAttribute("n", n);
+        News news = newsRepository.getOne(newsId);
+        news.addclick();
+        newsRepository.save(news);
+        model.addAttribute("n", news);
         model.addAttribute("writers", newsWriterRepository.findAll());
         model.addAttribute("categories", categoryRepository.findAll());
         addAsideListNewsAndNavbar(model);
@@ -63,10 +67,16 @@ public class NewsController {
     }
 
     @GetMapping("/news/edit/{newsId}")
-    public String putOne(Model model, @PathVariable Long newsId) throws Throwable {
+    public String view(Model model, @PathVariable Long newsId) throws Throwable {
+        if (!model.asMap().containsKey("news")) {
+            News n = newsRepository.getOne(newsId);
+            n.setEditId(newsId);
+            model.addAttribute("news", n);
+        }
+
         addAsideListNewsAndNavbar(model);
-        model.addAttribute("news", newsRepository.getOne(newsId));
         model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("writers", newsWriterRepository.findAll());
         return "modifyNewsstory";
     }
 
@@ -80,8 +90,11 @@ public class NewsController {
 
 
     @GetMapping("/add")
-    public String addNew(Model model) {
+    public String addNew(@ModelAttribute News news, BindingResult bindingResult, Model model) {
         addAsideListNewsAndNavbar(model);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("errors", bindingResult.getAllErrors());
+        }
         model.addAttribute("writers", newsWriterRepository.findAll());
         model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("navbarCategories", categoryRepository.findByPinned(new Boolean(true)));
@@ -93,93 +106,64 @@ public class NewsController {
         return "addNews";
     }
 
-    @PostMapping("news/edit/{id}")
-    public String modifyNews(@PathVariable Long id, RedirectAttributes rel, @RequestParam("newsObject") MultipartFile newsObject,
-                             @RequestParam String header,
-                             @RequestParam String ingress,
-                             @RequestParam String content,
-                             @RequestParam String categories) throws IOException {
-
-        NewsObject no = new NewsObject();
-        no.setContent(newsObject.getBytes());
-        newsObjectRepository.save(no);
-
-        News n = newsRepository.getOne(id);
-        n.setHeader(header);
-        n.setIngress(ingress);
-        n.setContent(content);
-
-
-        String[] c = categories.split(",");
-
-        for (String ct : c) {
-            Category nc = categoryRepository.getOne(Long.parseLong((ct)));
-            n.addCategory(nc);
-        }
-
-        n.setNewsObject(no);
-
-        newsRepository.save(n);
-        return "redirect:/";
-    }
-
-    @PostMapping("/addNews")
-    public String addNews(RedirectAttributes rel, @RequestParam("newsObject") MultipartFile newsObject,
-                          @RequestParam(required = false) String header,
-                          @RequestParam(required = false) String ingress,
-                          @RequestParam(required = false) String content,
-                          @RequestParam(required = false) String writers,
-                          @RequestParam(required = false) String categories) throws IOException {
-
-        NewsObject no = new NewsObject();
-        no.setContent(newsObject.getBytes());
-        newsObjectRepository.save(no);
-
-
-        News news = new News();
-        news.setHeader(header);
-        news.setIngress(ingress);
-        news.setContent(content);
-
-
-        if (writers != null && categories != null) {
-            String[] wr = writers.split(",");
-
-            for (String w : wr) {
-                Newswriter nw = newsWriterRepository.getOne(Long.parseLong((w)));
-                news.addNewsWriter(nw);
-            }
-
-            String[] c = categories.split(",");
-
-            for (String ct : c) {
-                Category nc = categoryRepository.getOne(Long.parseLong((ct)));
-                news.addCategory(nc);
-            }
-
-        }
-
-        List<String> errors = newsValidatorService.validateNews(news);
-        if (!errors.isEmpty()) {
-            rel.addFlashAttribute("errors", errors);
+    @PostMapping("news/edit")
+    public String modifyNews(@Valid @ModelAttribute News news, BindingResult bindingResult, RedirectAttributes rel, @RequestParam("newsObject")
+            MultipartFile newsObject, @RequestParam Long editId) throws IOException {
+        // TOOOODELLA huono viritelmä, mutta en keksinyt miten @ModelAttributen ja olemassaolevan olion saa juttelemaan
+        // keskenään mitenkään erityisen fiksusti, joten tein purkkamaisen redirectin ja talletan sitten viestit siihen
+        if (bindingResult.hasErrors()) {
+            news.setEditId(editId);
+            rel.addFlashAttribute("errors", newsValidatorService.getErrorMessages(bindingResult));
             rel.addFlashAttribute("news", news);
-            return "redirect:/add";
+            return "redirect:/news/edit/" + editId;
         }
 
-        news.setNewsObject(no);
-        news.setPublishdate(LocalDate.now());
-        news.setClicks(0);
-        newsRepository.save(news);
+        // En myöskään tajunnut miten saan nuo kentät kuten clicks, publishdate jne Modelattributeen mitenkään nätisti,
+        // joten lisäsilen vain validoidut tiedot olemassaolevaan objektiin, joka identifioidaan ID:llä
+        News n = newsRepository.getOne(editId);
+        n.setContent(news.getContent());
+        n.setIngress(news.getIngress());
+        n.setHeader(news.getHeader());
+        n.setWriters(news.getWriters());
+        n.setCategories(news.getCategories());
+        newsRepository.save(n);
 
         return "redirect:/";
     }
+
+    @Secured("ADM")
+    @PostMapping("/addNews")
+    public String addNews(@Valid @ModelAttribute News news, BindingResult bindingResult,
+                          Model model, @RequestParam("newsObject")
+                                  MultipartFile newsObject) throws IOException {
+
+        if (bindingResult.hasErrors()) {
+            List<String> e = newsValidatorService.getErrorMessages(bindingResult);
+            model.addAttribute("errors", e);
+            return "addNews";
+        }
+
+
+        NewsObject no = new NewsObject();
+        no.setContent(newsObject.getBytes());
+        no.setNews(news);
+        news.setClicks(0);
+        news.setPublishdate(LocalDate.now());
+
+        newsRepository.save(news);
+        newsObjectRepository.save(no);
+
+        return "redirect:/";
+    }
+
 
     @Transactional
     @GetMapping(path = "/image/{id}/", produces = {"image/png", "image/jpg"})
     @ResponseBody
     public byte[] getContent(@PathVariable Long id) {
         News n = newsRepository.getOne(id);
-        return n.getNewsObject().getContent();
+        return newsObjectRepository.findByNews(n).getContent();
+
     }
 
 
@@ -189,5 +173,7 @@ public class NewsController {
         model.addAttribute("newest", newsFinderService.findNewest());
         model.addAttribute("mostPopular", newsFinderService.findMostPopular());
     }
+
+
 
 }

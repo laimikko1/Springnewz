@@ -16,7 +16,7 @@
 </div>
 
 <div class="main">
-    <form class="newsform" th:action="@{/addNews}" method="POST"  enctype="multipart/form-data">
+    <form class="newsform" th:action="@{/addNews}" th:object="${news}" method="POST"  enctype="multipart/form-data">
         <div th:replace="fragments/newsFragment :: newsForm">
         </div>
         <input type="submit" value="Add a newsstory!"/>
