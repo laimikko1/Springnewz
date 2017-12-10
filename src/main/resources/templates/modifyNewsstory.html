@@ -16,9 +16,15 @@
 </div>
 
 <div class="main">
-    <form class="newsform" th:action="@{/news/edit}" th:object="${news}" method="POST" enctype="multipart/form-data">
-        <div th:replace="fragments/newsFragment :: newsForm">
 
+    <div class="delete">
+        <form th:action="@{/news/delete/{id}(id=${news.id})}" th:method="DELETE">
+            <input type="submit" value="Delete newsstory!">
+        </form>
+    </div>
+    <form class="newsform" th:action="@{/news/edit}" th:object="${news}" method="POST" enctype="multipart/form-data">
+
+        <div th:replace="fragments/newsFragment :: newsForm">
         </div>
 
         <input type="submit" value="Update newsstory!"/>
@@ -38,5 +44,6 @@
 
 <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 <script src="javascript/main.js"></script>
+
 </body>
 </html>

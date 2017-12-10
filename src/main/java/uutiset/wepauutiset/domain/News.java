@@ -68,6 +68,6 @@ public class News extends AbstractPersistable<Long> implements Comparable<News> 
 
     @Override
     public int compareTo(News news) {
-        return this.clicks.size() - news.clicks.size();
+        return news.clicks.size() - this.clicks.size();
     }
 }

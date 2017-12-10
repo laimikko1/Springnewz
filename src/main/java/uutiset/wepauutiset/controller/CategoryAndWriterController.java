@@ -4,22 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import uutiset.wepauutiset.domain.Category;
 import uutiset.wepauutiset.domain.Newswriter;
 import uutiset.wepauutiset.repository.CategoryRepository;
+import uutiset.wepauutiset.repository.NewsRepository;
 import uutiset.wepauutiset.repository.NewsWriterRepository;
 import uutiset.wepauutiset.service.NewsFinderService;
-import uutiset.wepauutiset.service.NewsValidatorService;
+import uutiset.wepauutiset.service.ValidatorService;
 
-import javax.persistence.PreUpdate;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class CategoryAndWriterController {
@@ -32,7 +29,13 @@ public class CategoryAndWriterController {
     private NewsFinderService newsFinderService;
 
     @Autowired
-    private NewsValidatorService newsValidatorService;
+    private ValidatorService validatorService;
+
+    @Autowired
+    private NewsRepository newsRepository;
+
+    @Autowired
+    private NewsWriterRepository newsWriterRepository;
 
     @Transactional
     @GetMapping("/modify")
@@ -41,7 +44,7 @@ public class CategoryAndWriterController {
         model.addAttribute("notPinnedCategories", categoryRepository.findByPinned(false));
 
         model.addAttribute("newest", newsFinderService.findNewest());
-        model.addAttribute("mostPopular", newsFinderService.findMostPopular());
+        model.addAttribute("mostPopular", newsFinderService.findMostPopular(newsRepository.findAll()));
         model.addAttribute("navbarCategories", categoryRepository.findByPinned(true));
 
 
@@ -49,22 +52,20 @@ public class CategoryAndWriterController {
     }
 
 
-    @GetMapping("/addCategory")
-    public String getAddCategory(@ModelAttribute Category category, Model model) {
+    @GetMapping("/addCategoryOrWriter")
+    public String getAddCategory(@ModelAttribute Category category, @ModelAttribute Newswriter newswriter, Model model) {
         model.addAttribute("newest", newsFinderService.findNewest());
-        model.addAttribute("mostPopular", newsFinderService.findMostPopular());
+        model.addAttribute("mostPopular", newsFinderService.findMostPopular(newsRepository.findAll()));
         model.addAttribute("navbarCategories", categoryRepository.findByPinned(new Boolean(true)));
         return "addCategory";
     }
 
     @PostMapping("/addCategory")
-    public String addCategory(@Valid @ModelAttribute Category category, BindingResult bindingResult, Model model,
+    public String addCategory(@Valid @ModelAttribute Category category, BindingResult bindingResult,
+                              @ModelAttribute Newswriter newswriter, Model model,
                               RedirectAttributes rel) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("errors", newsValidatorService.getErrorMessages(bindingResult));
-            model.addAttribute("newest", newsFinderService.findNewest());
-            model.addAttribute("mostPopular", newsFinderService.findMostPopular());
-            model.addAttribute("navbarCategories", categoryRepository.findByPinned(new Boolean(true)));
+            returnModelInfoOnError(bindingResult, model);
             return "addCategory";
         }
 
@@ -74,6 +75,20 @@ public class CategoryAndWriterController {
 
         return "redirect:/";
 
+    }
+
+    @PostMapping("/addNewswriter")
+    public String addCategory(@Valid @ModelAttribute Newswriter newswriter, BindingResult bindingResult,
+                              @ModelAttribute Category category, Model model,
+                              RedirectAttributes rel) {
+        if (bindingResult.hasErrors()) {
+            returnModelInfoOnError(bindingResult, model);
+            return "addCategory";
+        }
+
+        newsWriterRepository.save(newswriter);
+        rel.addFlashAttribute("messages", "New newswriter added!");
+        return "redirect:/";
     }
 
 
@@ -96,5 +111,12 @@ public class CategoryAndWriterController {
         return "redirect:/";
     }
 
+
+    private void returnModelInfoOnError(BindingResult bindingResult, Model model) {
+        model.addAttribute("errors", validatorService.getErrorMessages(bindingResult));
+        model.addAttribute("newest", newsFinderService.findNewest());
+        model.addAttribute("mostPopular", newsFinderService.findMostPopular(newsRepository.findAll()));
+        model.addAttribute("navbarCategories", categoryRepository.findByPinned(new Boolean(true)));
+    }
 
 }

@@ -22,6 +22,16 @@
 
             <input type="submit" value="Add category!"/>
         </form>
+
+
+        <form class="newsform" th:object="${newswriter}" th:action="@{/addNewswriter}" method="POST">
+            <br>Kirjoittajan nimi</br>
+            <input th:field="*{name}" type="text"/>
+
+            <input type="submit" value="Add category!"/>
+        </form>
+
+
     </div>
 </div>
 

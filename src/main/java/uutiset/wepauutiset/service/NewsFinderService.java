@@ -31,8 +31,7 @@ public class NewsFinderService {
         return newsRepository.findAll(pageable);
     }
 
-    public List<News> findMostPopular() {
-        List<News> n = newsRepository.findAll();
+    public List<News> findMostPopular(List<News> n) {
         List<News> lastWeekPopular = new ArrayList<>();
 
         for (News ne : n) {
@@ -53,10 +52,11 @@ public class NewsFinderService {
         Collections.sort(n.getClicks());
         List<NewsClick> lastweek = new ArrayList<>();
         for (NewsClick newsclick : n.getClicks()) {
-            if (newsclick.getClickdate().isBefore(LocalDate.now().minusDays(7))) {
+            if (newsclick.getClickdate().isAfter(LocalDate.now().minusDays(7))) {
                 lastweek.add(newsclick);
+            } else {
+                break;
             }
-            break;
         }
         return lastweek;
     }

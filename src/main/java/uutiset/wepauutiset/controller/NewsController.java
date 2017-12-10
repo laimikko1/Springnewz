@@ -11,7 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import uutiset.wepauutiset.domain.*;
 import uutiset.wepauutiset.repository.*;
 import uutiset.wepauutiset.service.NewsFinderService;
-import uutiset.wepauutiset.service.NewsValidatorService;
+import uutiset.wepauutiset.service.ValidatorService;
 import uutiset.wepauutiset.service.SecurityService;
 
 import javax.validation.Valid;
@@ -38,7 +38,7 @@ public class NewsController {
     private NewsFinderService newsFinderService;
 
     @Autowired
-    private NewsValidatorService newsValidatorService;
+    private ValidatorService validatorService;
 
     @Autowired
     private SecurityService securityService;
@@ -120,7 +120,7 @@ public class NewsController {
 
         if (bindingResult.hasErrors()) {
             news.setEditId(editId);
-            rel.addFlashAttribute("errors", newsValidatorService.getErrorMessages(bindingResult));
+            rel.addFlashAttribute("errors", validatorService.getErrorMessages(bindingResult));
             rel.addFlashAttribute("news", news);
             return "redirect:/news/edit/" + editId;
         }
@@ -150,7 +150,7 @@ public class NewsController {
 
 
         if (bindingResult.hasErrors()) {
-            List<String> e = newsValidatorService.getErrorMessages(bindingResult);
+            List<String> e = validatorService.getErrorMessages(bindingResult);
             model.addAttribute("errors", e);
             addAsideListNewsAndNavbar(model);
             addWritersAndCategories(model);
@@ -172,6 +172,25 @@ public class NewsController {
         return "redirect:/";
     }
 
+    @DeleteMapping("news/delete/{id}")
+    public String deleteOne(@PathVariable Long id, RedirectAttributes rel) {
+        if (!securityService.checkCredentials()) {
+            return "index";
+        }
+//        News news = this.newsRepository.getOne(id);
+//        List<NewsClick> nc = newsClickRepository.findAllByNews(news);
+//        for (NewsClick n : nc) {
+//            newsRepository.deleteById(n.getNews().getId());
+//        }
+        this.newsRepository.deleteById(id);
+
+
+        rel.addFlashAttribute("message", "Newsstory deleted!");
+        return "redirect:/";
+
+
+    }
+
 
     @Transactional
     @GetMapping(path = "/image/{id}/", produces = {"image/png", "image/jpg"})
@@ -185,7 +204,7 @@ public class NewsController {
     public void addAsideListNewsAndNavbar(Model model) {
         model.addAttribute("navbarCategories", categoryRepository.findByPinned(new Boolean(true)));
         model.addAttribute("newest", newsFinderService.findNewest());
-        model.addAttribute("mostPopular", newsFinderService.findMostPopular());
+        model.addAttribute("mostPopular", newsFinderService.findMostPopular(newsRepository.findAll()));
     }
 
     private void addWritersAndCategories(Model model) {

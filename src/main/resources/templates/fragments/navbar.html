@@ -13,16 +13,19 @@
             <li><a th:href="@{/}">Etusivu</a></li>
             <li th:each="c : ${navbarCategories}">
                 <a th:href="@{/news/{category}(category=${c.name})}"><span th:text="${c.name}"></span> </a></li>
-            <li class="optional"><a th:href="@{/modify}">Muokkaa näkymää</a></li>
-            <li class="optional" sec:authorize="hasAuthority('USER')">
-                <a th:href="@{/add}">Lisää uutinen</a></li>
             <li class="optional" sec:authorize="hasAuthority('USER')">
                 <a th:href="@{/logout}">Kirjaudu ulos</a></li>
             </li>
             <li class="optional" sec:authorize="isAnonymous()">
                 <a th:href="@{/login}">Kirjaudu</a></li>
+            <li class="optional" sec:authorize="hasAuthority('USER')">
+                <a th:href="@{/add}">Lisää uutinen</a></li>
+            <li class="optional" sec:authorize="hasAuthority('USER')">
+                <a th:href="@{/addCategoryOrWriter}">Lisää kategoria tai kirjoittaja</a></li>
 
             </li>
+            <li class="optional"><a th:href="@{/modify}">Muokkaa näkymää</a></li>
+
         </ul>
 
     </div>

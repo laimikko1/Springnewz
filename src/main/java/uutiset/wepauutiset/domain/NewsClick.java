@@ -4,6 +4,8 @@ package uutiset.wepauutiset.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Entity;
@@ -17,6 +19,7 @@ import java.time.LocalDate;
 public class NewsClick extends AbstractPersistable<Long> implements Comparable<NewsClick>{
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private News news;
 
     private LocalDate clickdate;
@@ -25,7 +28,7 @@ public class NewsClick extends AbstractPersistable<Long> implements Comparable<N
 
     @Override
     public int compareTo(NewsClick newsClick) {
-        return this.clickdate.compareTo(newsClick.clickdate);
+        return newsClick.clickdate.compareTo(this.clickdate);
     }
 }
 

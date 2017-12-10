@@ -38,7 +38,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/logout").authenticated()
                 .antMatchers("/add").authenticated()
-                .antMatchers("/news/edit/**").authenticated();
+                .antMatchers("/news/edit/**").authenticated()
+                .antMatchers("/addCategoryOrWriter").authenticated();
 
 
         http.formLogin()

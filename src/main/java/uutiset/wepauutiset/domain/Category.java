@@ -25,7 +25,7 @@ import java.util.List;
 
 public class Category extends AbstractPersistable<Long> {
 
-    @Size(min = 3, max = 15)
+    @Size(min = 3, max = 15, message = "Size must be between 3 and 15 chacters!")
     private String name;
 
     @NotNull
