@@ -41,7 +41,8 @@ public class AccountController {
     public String addRegistration(@Valid @ModelAttribute Account account, BindingResult bindingResult, Model model) {
 
         //Okei tein tämmösen purkkavirityksen ku en keksinyt että miten saan luotua yhden kryptatulla salasanalla
-        // varustetun käyttäjä käynnistyksen yhteydessä, niin ettei salasana näy mihinkään, eikä käytössä ole
+        // varustetun käyttäjä käynnistyksen yhteydessä,
+        // niin ettei salasana näy ei suojattuna mihinkää, eikä käytössä ole
         // rekisteröintilomaketta. Toki olisi voinut käyttää suoraa esim Postmania, mutta
         // sillo en oikein pysty rajoittaa että onnistuu vain kerran. Siispä tein näin.
 

@@ -4,7 +4,11 @@ package uutiset.wepauutiset.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.engine.FetchStyle;
 import org.springframework.data.jpa.domain.AbstractPersistable;
+import org.springframework.data.repository.cdi.Eager;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -30,7 +34,7 @@ public class News extends AbstractPersistable<Long> implements Comparable<News> 
     @Size(min = 50, max = 1000, message = "Content must be between 50 and 1000 characters!")
     private String content;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<NewsClick> clicks;
 
     private LocalDate publishdate;
@@ -67,7 +71,11 @@ public class News extends AbstractPersistable<Long> implements Comparable<News> 
     }
 
     @Override
+    @Transactional
     public int compareTo(News news) {
+        if(news.clicks == null) {
+            return 0;
+        }
         return news.clicks.size() - this.clicks.size();
     }
 }

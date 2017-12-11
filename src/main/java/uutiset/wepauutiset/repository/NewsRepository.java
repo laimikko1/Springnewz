@@ -11,10 +11,12 @@ import uutiset.wepauutiset.domain.Category;
 import uutiset.wepauutiset.domain.News;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
 public interface NewsRepository extends JpaRepository<News, Long> {
+
 
     @Query(value = "SELECT * FROM news, news_categories, " +
             "category WHERE news.id = category_news_id " +

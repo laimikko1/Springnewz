@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import uutiset.wepauutiset.domain.*;
 import uutiset.wepauutiset.repository.*;
 import uutiset.wepauutiset.service.NewsFinderService;
+import uutiset.wepauutiset.service.NewsParseService;
 import uutiset.wepauutiset.service.ValidatorService;
 import uutiset.wepauutiset.service.SecurityService;
 
@@ -44,7 +45,7 @@ public class NewsController {
     private SecurityService securityService;
 
     @Autowired
-    private NewsClickRepository newsClickRepository;
+    private NewsParseService newsParseService;
 
     @GetMapping("/")
     public String showIndex(Model model) {
@@ -57,15 +58,7 @@ public class NewsController {
     @Transactional
     @GetMapping("/newsStory/{newsId}")
     public String showOne(Model model, @PathVariable Long newsId) throws Throwable {
-        News news = newsRepository.getOne(newsId);
-        NewsClick nc = new NewsClick();
-        nc.setNews(news);
-        nc.setClickdate(LocalDate.now());
-
-        newsClickRepository.save(nc);
-        news.addLick(nc);
-        newsRepository.save(news);
-
+        News news = newsParseService.parseEditable(newsId);
         model.addAttribute("n", news);
         addWritersAndCategories(model);
         addAsideListNewsAndNavbar(model);
@@ -106,17 +99,16 @@ public class NewsController {
 
         return "addNews";
     }
+    // TOOOODELLA huono viritelmä, mutta en keksinyt miten @ModelAttributen ja olemassaolevan olion saa juttelemaan
+    // keskenään mitenkään erityisen fiksusti, joten tein purkkamaisen redirectin ja talletan sitten viestit siihen
 
     @PostMapping("news/edit")
     public String modifyNews(@Valid @ModelAttribute News news, BindingResult bindingResult, RedirectAttributes rel, @RequestParam("newsObject")
             MultipartFile newsObject, @RequestParam Long editId) throws IOException {
-        // TOOOODELLA huono viritelmä, mutta en keksinyt miten @ModelAttributen ja olemassaolevan olion saa juttelemaan
-        // keskenään mitenkään erityisen fiksusti, joten tein purkkamaisen redirectin ja talletan sitten viestit siihen
 
         if (!securityService.checkCredentials()) {
             return "redirect:/";
         }
-
 
         if (bindingResult.hasErrors()) {
             news.setEditId(editId);
@@ -125,15 +117,10 @@ public class NewsController {
             return "redirect:/news/edit/" + editId;
         }
 
-        // En myöskään tajunnut miten saan nuo kentät kuten clicks, publishdate jne Modelattributeen mitenkään nätisti,
+        // En myöskään tajunnut miten saan nuo kentät kuten clicks, publishdate jne ModelAttributeen mitenkään nätisti,
         // joten lisäsilen vain validoidut tiedot olemassaolevaan objektiin, joka identifioidaan ID:llä
-        News n = newsRepository.getOne(editId);
-        n.setContent(news.getContent());
-        n.setIngress(news.getIngress());
-        n.setHeader(news.getHeader());
-        n.setWriters(news.getWriters());
-        n.setCategories(news.getCategories());
-        newsRepository.save(n);
+        newsParseService.parseModelAttributeDataToNews(editId, news);
+
 
         rel.addFlashAttribute("messages", "Newsstory saved with edited information!");
         return "redirect:/";
@@ -148,7 +135,6 @@ public class NewsController {
             return "redirect:/";
         }
 
-
         if (bindingResult.hasErrors()) {
             List<String> e = validatorService.getErrorMessages(bindingResult);
             model.addAttribute("errors", e);
@@ -161,10 +147,7 @@ public class NewsController {
         NewsObject no = new NewsObject();
         no.setContent(newsObject.getBytes());
         no.setNews(news);
-        news.setClicks(new ArrayList<>());
-        news.setPublishdate(LocalDate.now());
-
-        newsRepository.save(news);
+        newsParseService.parseNonFormDataToNewNewsstory(news);
         newsObjectRepository.save(no);
 
         rel.addFlashAttribute("messages", "Newsstory added!");
@@ -172,16 +155,14 @@ public class NewsController {
         return "redirect:/";
     }
 
+
+
     @DeleteMapping("news/delete/{id}")
     public String deleteOne(@PathVariable Long id, RedirectAttributes rel) {
         if (!securityService.checkCredentials()) {
             return "index";
         }
-//        News news = this.newsRepository.getOne(id);
-//        List<NewsClick> nc = newsClickRepository.findAllByNews(news);
-//        for (NewsClick n : nc) {
-//            newsRepository.deleteById(n.getNews().getId());
-//        }
+
         this.newsRepository.deleteById(id);
 
 
@@ -201,6 +182,7 @@ public class NewsController {
 
     }
 
+    @Transactional
     public void addAsideListNewsAndNavbar(Model model) {
         model.addAttribute("navbarCategories", categoryRepository.findByPinned(new Boolean(true)));
         model.addAttribute("newest", newsFinderService.findNewest());

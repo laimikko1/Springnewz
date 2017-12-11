@@ -18,9 +18,15 @@
 <div class="main">
 
     <div class="delete">
-        <form th:action="@{/news/delete/{id}(id=${news.id})}" th:method="DELETE">
+
+
+        <form th:if="${news.id == null}" th:action="@{/news/delete/{id}(id=${news.editId})}" th:method="DELETE">
             <input type="submit" value="Delete newsstory!">
         </form>
+        <form th:if="${news.id != null}" th:action="@{/news/delete/{id}(id=${news.id})}" th:method="DELETE">
+            <input type="submit" value="Delete newsstory!">
+        </form>
+
     </div>
     <form class="newsform" th:action="@{/news/edit}" th:object="${news}" method="POST" enctype="multipart/form-data">
 

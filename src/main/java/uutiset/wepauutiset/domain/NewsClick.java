@@ -9,6 +9,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 
@@ -18,7 +19,7 @@ import java.time.LocalDate;
 @Entity
 public class NewsClick extends AbstractPersistable<Long> implements Comparable<NewsClick>{
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private News news;
 

@@ -23,7 +23,7 @@ import java.util.List;
 @Valid
 public class Newswriter extends AbstractPersistable<Long> {
 
-    @Size(min=3, max=10, message = "Name must be between 3 and 15 characters!")
+    @Size(min=3, max=15, message = "Writer name must be between 3 and 15 characters!")
     @Pattern(regexp = "^[A-Za-z]+$", message = "Name must contain only letters!")
     private String name;
 

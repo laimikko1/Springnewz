@@ -9,7 +9,7 @@ import uutiset.wepauutiset.domain.News;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//En keksinyt miten saan nätisit BindingErrorit tekstimuotoon, joten tein sille tällaisen yhden metodin palvelun
 @Service
 public class ValidatorService {
 
