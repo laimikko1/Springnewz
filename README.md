@@ -6,4 +6,4 @@
 [SonarCube](https://sonarcloud.io/dashboard?id=uutiset%3Awepauutiset)
 
 
-[Documentation)(https://github.com/laimikko1/Springnewz/blob/master/documentation/documentation.md)
+[Documentation](https://github.com/laimikko1/Springnewz/blob/master/documentation/documentation.md)
