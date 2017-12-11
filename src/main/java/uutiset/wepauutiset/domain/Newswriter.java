@@ -24,7 +24,7 @@ import java.util.List;
 public class Newswriter extends AbstractPersistable<Long> {
 
     @Size(min=3, max=15, message = "Writer name must be between 3 and 15 characters!")
-    @Pattern(regexp = "^[A-Za-z]+$", message = "Name must contain only letters!")
+    @Pattern(regexp = "^[a-zA-Z_ ]*$", message = "Name must contain only letters!")
     private String name;
 
     @ManyToMany(mappedBy = "writers")
