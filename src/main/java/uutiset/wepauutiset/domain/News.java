@@ -21,7 +21,7 @@ import java.util.List;
 @Valid
 public class News extends AbstractPersistable<Long> implements Comparable<News> {
 
-    @Size(min = 5, max = 20, message = "Header must be between 5 and 20 characters!")
+    @Size(min = 5, max = 50, message = "Header must be between 5 and 50 characters!")
     private String header;
 
     @Size(min = 10, max = 250, message = "Ingress must be between 10 and 250 characters!")
