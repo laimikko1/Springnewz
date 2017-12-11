@@ -57,7 +57,7 @@ Then Valittu kategoria lisätään sivustolle ja viesti lisäyksestä näytetä�
 ### Käyttöohje
 
 Ohjaa itsesi sovelluksen osoitteeseen ja rupea klikkailemaan. Linkki alla: 
-[Springnewz](https://springnewz.herokuapp.com/)
+!(https://springnewz.herokuapp.com/)[Springnewz]
 
 
 ### Asennusohje
