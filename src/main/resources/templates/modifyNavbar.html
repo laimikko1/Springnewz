@@ -1,10 +1,9 @@
 <!DOCTYPE HTML>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Orders</title>
-    <meta charset="UTF-8"/>
-    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/tyylisivu.css}"/>
-</head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.springframework.org/security/tags">
+
+<div th:replace="fragments/top :: head"></div>
+
 
 <header th:replace="fragments/navbar :: header">
     <p>testataan</p>
@@ -13,28 +12,26 @@
 
 
 <div class="main">
-    <div class="article">
-        <form class="newsform" th:action="@{/modify/t}" method="POST">
-            <select class="select" name="categories" multiple="multiple">
-                <h2>Pinned categories: </h2>
-                <option th:each="category : ${notPinnedCategories}"
-                        th:value="${category.name}"
-                        th:text="${category.name}"></option>
-            </select>
-            <!--Vähän ruma, mutta muuta en keksinyt, tää pentele jäi samalle riville-->
-            <br>
-            <input type="submit" value="Pin to navbar!"/>
-        </form>
-        <form class="newsform" th:action="@{/modify/f}" method="POST">
-            <select class="select" name="categories" multiple="multiple">
-                <h2>Non-pinned categories</h2>
-                <option th:each="category : ${pinnedCategories}"
-                        th:value="${category.name}"
-                        th:text="${category.name}"></option>
-            </select>
-            <input type="submit" value="Remove from navbar!"/>
-        </form>
-    </div>
+    <form class="newsform" th:action="@{/modify/t}" method="POST">
+        <select class="select" name="categories" multiple="multiple">
+            <h2>Pinned categories: </h2>
+            <option th:each="category : ${notPinnedCategories}"
+                    th:value="${category.name}"
+                    th:text="${category.name}"></option>
+        </select>
+        <!--Vähän ruma, mutta muuta en keksinyt, tää pentele jäi samalle riville-->
+        <br>
+        <input type="submit" value="Pin to navbar!"/>
+    </form>
+    <form class="newsform" th:action="@{/modify/f}" method="POST">
+        <select class="select" name="categories" multiple="multiple">
+            <h2>Non-pinned categories</h2>
+            <option th:each="category : ${pinnedCategories}"
+                    th:value="${category.name}"
+                    th:text="${category.name}"></option>
+        </select>
+        <input type="submit" value="Remove from navbar!"/>
+    </form>
 
 </div>
 

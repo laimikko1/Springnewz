@@ -1,20 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
 <div class="messages" th:fragment="messages">
     <div th:if="${messages != null}">
         <ul>
             <li t th:each="message : ${messages}" th:text="${message}"></li>
         </ul>
     </div>
-
-
-</body>
-</html>

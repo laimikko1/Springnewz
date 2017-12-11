@@ -244,4 +244,22 @@ li a {
     cursor: pointer;
 }
 
+.muokkausLinkki a {
+    margin-left: 50px;
+    text-decoration: none;
+    color: white;
+    background-color: mediumseagreen;
+    padding: 10px;
+    font-weight: bold;
+    text-shadow: 2px 2px black;
+    border-radius: 10px;
+}
+
+.muokkausLinkki a:hover {
+    color: black;
+    text-shadow: 2px 2px white;
+}
+
+
+
 

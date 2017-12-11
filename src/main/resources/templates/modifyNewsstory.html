@@ -1,10 +1,10 @@
 <!DOCTYPE HTML>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/tyylisivu.css}"/>
-    <title>Title</title>
-</head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.springframework.org/security/tags">
+
+
+<div th:replace="fragments/top :: head"></div>
+
 
 <header th:replace="fragments/navbar :: header">
     <p>testataan</p>

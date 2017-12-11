@@ -2,7 +2,9 @@
 
 
 #### Aiheen kuvaus
-Harjoitustyön aiheena oli uutissivusto, jossa käyttäjä voi selata uutisia kategorioittain, sekä muokata uutissivuston näkymää haluamanlaisekseen. Tämän lisäksi ylläpitäjä voi lisätä sivustolle uutisia, muokata olemassaolevia uutisia ja poistaa niitä. Ylläpitäjä voi myös lisätä ja poistaa kategorioita. 
+Harjoitustyön aiheena oli uutissivusto, jossa käyttäjä voi selata uutisia kategorioittain, sekä muokata uutissivuston näkymää lisäämällä valikkoon kategorioita. Sivustolla tulee myös olla listattuna sekä uusimmat että viikon luetuimmat uutiset. Tämän lisäksi ylläpitäjä voi lisätä sivustolla sekä poistaa niitä. Ylläpitäjä voi myös lisätä kategorioita ja kirjoittajia uutisille.
+
+Harjoitustyö mahdollistaa tällä hetkellä vain yhden käyttäjän kirjautumisen.
 
 #### Käyttötapaukset
 
@@ -37,4 +39,38 @@ And: Ylläpitäjä syöttää validin kategorian nimen avautuvaan lomakkeeseen
 Then: Valittu kategoria lisätään sivustolle ja viesti lisäyksestä näytetään
 ```
 
+### Ominaisuudet
 
+- Uutisia voi lisätä ja poistaa
+- Uutiset luokitellaan kategorioittain
+- Uutisia voi lukea, jokaisella uutisella on oma esittelysivu
+- Uutisia voi muokata
+- Kategorioita voi lisätä, samoin kirjoittajia
+- Sovellukseen voi kirjautua ja rekisteröityä (huom. vain yksi käyttäjä)
+
+
+### Käyttöohje
+
+Ohjaa itsesi sovelluksen osoitteeseen ja rupea klikkailemaan. Linkki alla:
+(https://springnewz.herokuapp.com/)[Springnewz]
+
+
+### Asennusohje
+Voit käyttää sovellusta joko yllämainitusti selaimen kautta tai vaihtoehtoisesti
+lataa projektin (tai kloonata gitin kautta) ja napsutella terminaaliin projektin juurikansiossa:
+```bash
+mvn spring-boot:run
+```
+Tämän jälkeen sovellus on käytettävissä osoitteessa:
+www.localhost:8080
+
+
+
+
+### TODO
+- Sovellus tukee vain yhtä kirjautujaa tällä hetkellä
+- Kategorioita ja kirjoittajia ei voi poistaa/muokata
+- Uutisia ei voi hakea, eikä niitä sivuteta
+- Sovellus ei validoi lisätyn uutiskuvan kokoa
+- Käyttäjätasoja ei ole
+- Metoditason autorisointi on puutteellista

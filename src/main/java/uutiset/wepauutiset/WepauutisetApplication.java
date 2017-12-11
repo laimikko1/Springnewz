@@ -27,21 +27,7 @@ public class WepauutisetApplication {
 
     }
 
-//    //
-    @Bean
-    InitializingBean sendDatabase() {
-        return () -> {
-            Category t = new Category();
-            t.setName("Talous");
-            t.setPinned(false);
-            Category c = new Category();
-            c.setName("Urheilu");
-            t.setPinned(false);
-//            newsWriterRepository.save(userService.createUser("mikko", "salasana"));
-            categoryRepository.save(t);
-            categoryRepository.save(c);
-        };
-    }
+
 
 
 }

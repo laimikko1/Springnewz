@@ -83,7 +83,7 @@ public class NewsControllerTest {
         this.login();
 
         MvcResult res = mockMvc.perform(fileUpload("/addNews")
-                .param("header", "uusi uutinen")
+                .param("head", "uusi uutinen")
                 .param("content", "Uusi contentUusi " +
                         "contentUusi contentUusi contentUusi " +
                         "contentUusi content")

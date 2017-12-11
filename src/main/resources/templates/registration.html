@@ -1,10 +1,10 @@
 <!DOCTYPE HTML>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Orders</title>
-    <meta charset="UTF-8"/>
-    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/tyylisivu.css}"/>
-</head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.springframework.org/security/tags">
+
+
+<div th:replace="fragments/top :: head"></div>
+
 
 <header th:replace="fragments/navbar :: header">
     <p>testataan</p>
@@ -14,17 +14,18 @@
 <div th:replace="fragments/errors :: errors"></div>
 
 <div class="main">
-    <form th:action="@{/registration}" method="POST">
-        <br>Nimi</br>
-        <input type="text" name="name"/>
+    <div class="newsform">
+        <form th:action="@{/registration}" method="POST">
+            <br>Nimi</br>
+            <input type="text" name="name"/>
 
-        <br>Nimi</br>
-        <input type="password" name="password"/>
+            <br>Salasana</br>
+            <input type="password" name="password"/>
 
 
-        <input type="submit" value="Register!"/>
-    </form>
-
+            <input type="submit" value="Register!"/>
+        </form>
+    </div>
 
 </div>
 
