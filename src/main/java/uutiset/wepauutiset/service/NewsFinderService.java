@@ -33,7 +33,7 @@ public class NewsFinderService {
 
 
     public Page findNewest() {
-        this.pageable = PageRequest.of(0, 5, Sort.Direction.ASC, "publishdate");
+        this.pageable = PageRequest.of(0, 5, Sort.Direction.DESC, "publishdate");
         return newsRepository.findAll(pageable);
     }
 
