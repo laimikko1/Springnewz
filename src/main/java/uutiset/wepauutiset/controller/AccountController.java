@@ -46,9 +46,9 @@ public class AccountController {
         // rekisteröintilomaketta. Toki olisi voinut käyttää suoraa esim Postmania, mutta
         // sillo en oikein pysty rajoittaa että onnistuu vain kerran. Siispä tein näin.
 
-        if (!accountRepository.findAll().isEmpty()) {
-            return "redirect:/";
-        }
+//        if (!accountRepository.findAll().isEmpty()) {
+//            return "redirect:/";
+//        }
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", validatorService.getErrorMessages(bindingResult));

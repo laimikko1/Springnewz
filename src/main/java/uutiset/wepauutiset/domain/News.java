@@ -73,7 +73,7 @@ public class News extends AbstractPersistable<Long> implements Comparable<News> 
     @Override
     @Transactional
     public int compareTo(News news) {
-        if(news.clicks == null) {
+        if (news.clicks == null) {
             return 0;
         }
         return news.clicks.size() - this.clicks.size();

@@ -33,7 +33,7 @@
         <div th:replace="fragments/newsFragment :: newsForm">
         </div>
 
-        <input type="submit" value="Update newsstory!"/>
+        <input sec:authorize="hasAuthority('USER')" type="submit" value="Update newsstory!"/>
     </form>
 
 </div>
