@@ -80,3 +80,5 @@ www.localhost:8080
 - Sovellus ei validoi lisätyn uutiskuvan kokoa
 - Käyttäjätasoja ei ole
 - Metoditason autorisointi on puutteellista
+- Testikattavuus on heikko
+- Käyttöliittymä melkoista finglishia, eli vähän sekaisin kielet
