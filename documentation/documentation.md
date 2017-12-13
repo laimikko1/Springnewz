@@ -61,6 +61,7 @@ Ohjaa itsesi sovelluksen osoitteeseen ja rupea klikkailemaan. Linkki:
 [Springnewz](https://springnewz.herokuapp.com/)
 
 - Kirjautu tunnarilla 
+
 tunnari: newsmaster
 salasana: zorroispink
 
