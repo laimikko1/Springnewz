@@ -60,6 +60,9 @@ Ohjaa itsesi sovelluksen osoitteeseen ja rupea klikkailemaan. Linkki:
 
 [Springnewz](https://springnewz.herokuapp.com/)
 
+- Kirjautu tunnarilla
+tunnari: newsmaster
+salasana: zorroispink
 
 ### Asennusohje
 Voit käyttää sovellusta joko yllämainitusti selaimen kautta tai vaihtoehtoisesti
@@ -74,7 +77,7 @@ www.localhost:8080
 
 
 ### TODO
-- Sovellus tukee vain yhtä kirjautujaa tällä hetkellä
+- Sovellus tukee vain yhtä kirjautujaa tällä hetkellä~
 - Kategorioita ja kirjoittajia ei voi poistaa/muokata
 - Uutisia ei voi hakea, eikä niitä sivuteta
 - Sovellus ei validoi lisätyn uutiskuvan kokoa
